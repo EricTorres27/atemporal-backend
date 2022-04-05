@@ -5,8 +5,8 @@ import { validateSchema } from '../utils/validator'
 const createAccountSchema = Joi.object({
   nombre: Joi.string().min(2).max(30).required(),
   celular: Joi.string().min(10).max(10).required(),
-  correo_electronico: Joi.string().email().required(),
-  pass: Joi.string().min(8).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).required(),
   es_admin: Joi.boolean()
 })
 
@@ -22,8 +22,8 @@ export const validateCreateAccount = async (req, res, next) => {
 
 // Login user
 const loginSchema = Joi.object({
-  correo_electronico: Joi.string().email().required(),
-  pass: Joi.string().min(8).required()
+  email: Joi.string().email().required(),
+  password: Joi.string().min(8).required()
 })
 export const validateLogin = async (req, res, next) => {
   const { body } = req

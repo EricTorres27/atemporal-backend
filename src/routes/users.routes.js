@@ -5,6 +5,7 @@ import { validateCreateAccount } from '../middlewares/user.middlewares'
 const router = Router()
 
 router.get('/', userController.getAll)
+router.get('/me', userController.whoIam)
 router.get('/:id', userController.getOne)
 
 router.post('/', validateCreateAccount, userController.postOneAdmin)

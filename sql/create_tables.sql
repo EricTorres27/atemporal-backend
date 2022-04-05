@@ -10,10 +10,10 @@ CREATE TABLE usuarios (
     es_admin boolean NOT NULL DEFAULT 0,
     nombre varchar(255) NOT NULL,
     celular varchar(255) NOT NULL,
-    correo_electronico varchar(255),
-    pass varchar(255),
+    email varchar(255),
+    `password` varchar(255),
     auth_google integer,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     foto_cuenta varchar(255),
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

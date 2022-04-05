@@ -7,20 +7,20 @@ export const userController = {
       res.status(200).json(users)
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'error' })
+      res.status(500).json({ msg: 'error getting all users' })
     }
   },
   getOne: async (req, res) => {
     try {
-      const user = await User.getOne(req.params.id)
+      const user = await User.getOnebyId(req.params.id)
       if (user[0]) {
         res.json(user[0])
       } else {
-        res.status(400).json({ msg: 'no existe' })
+        res.status(400).json({ msg: 'not exist user' })
       }
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
+      res.json({ msg: 'error getting user' })
     }
   },
   postOneAdmin: async (req, res) => {
@@ -30,17 +30,7 @@ export const userController = {
       res.status(201).json(resp[0])
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
-    }
-  },
-  postOneUser: async (req, res) => {
-    try {
-      console.log(req.body)
-      const resp = await User.postOne(req.body)
-      res.status(201).json(resp[0])
-    } catch (error) {
-      console.log(error)
-      res.json({ msg: 'error' })
+      res.json({ msg: 'error post admin' })
     }
   },
   updateOne: async (req, res) => {
@@ -60,6 +50,15 @@ export const userController = {
     } catch (error) {
       console.log(error)
       res.json({ msg: 'error' })
+    }
+  },
+  whoIam: async (req, res) => {
+    try {
+      console.log(req.body.id)
+      const [user] = await User.getOnebyId(req.body.id)
+      res.status(200).json(user)
+    } catch (error) {
+      res.status(500).json({ msg: 'error in get data user' })
     }
   }
 }
