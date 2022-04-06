@@ -51,7 +51,7 @@ CREATE TABLE eventos (
     tipo_cobro boolean NOT NULL,
     foto_evento varchar(255) NOT NULL,
     archivo_itinerario varchar(255) NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 0,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
