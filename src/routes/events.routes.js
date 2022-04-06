@@ -9,6 +9,8 @@ router.get('/:id', eventController.getOne)
 router.post('/', eventController.postOne)
 router.put('/:id', eventController.updateOne)
 
+router.post('/:id/boletos/:idt', eventController.postOneTicket)
+
 router.delete('/:id', eventController.deleteOne)
 
 module.exports = router

@@ -68,7 +68,7 @@ CREATE TABLE boletos (
     id_boleto int NOT NULL,
     nombre varchar(255) NOT NULL,
     cantidad int,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -122,7 +122,7 @@ CREATE TABLE eventos_metodos (
     id int NOT NULL,
     id_metodo int NOT NULL,
     id_evento int NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -140,7 +140,7 @@ CREATE TABLE eventos_boletos (
     id int NOT NULL,
     id_boleto int NOT NULL,
     id_evento int NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -186,25 +186,30 @@ ADD CONSTRAINT fk_roles_permisos FOREIGN KEY (id_rol) REFERENCES roles(id_rol);
 
 ALTER TABLE usuarios_eventos_crean
 ADD CONSTRAINT pk_uec PRIMARY KEY (id, id_usuario, id_evento),
+CHANGE id id int NOT NULL AUTO_INCREMENT,
 ADD CONSTRAINT fk_e_crean FOREIGN KEY (id_evento) REFERENCES eventos(id_evento),
 ADD CONSTRAINT fk_u_crean FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario);
 
 ALTER TABLE usuarios_eventos_reservan
 ADD CONSTRAINT pk_uer PRIMARY KEY (id, id_usuario, id_evento),
+CHANGE id id int NOT NULL AUTO_INCREMENT,
 ADD CONSTRAINT fk_e_reservan FOREIGN KEY (id_evento) REFERENCES eventos(id_evento),
 ADD CONSTRAINT fk_u_reservan FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario);
 
 ALTER TABLE eventos_categorias
 ADD CONSTRAINT pk_ec PRIMARY KEY (id, id_categoria, id_evento),
+CHANGE id id int NOT NULL AUTO_INCREMENT,
 ADD CONSTRAINT fk_categorias FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
 ADD CONSTRAINT fk_eventos_categorias FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
 
 ALTER TABLE eventos_boletos
 ADD CONSTRAINT pk_eb PRIMARY KEY (id, id_boleto, id_evento),
+CHANGE id id int NOT NULL AUTO_INCREMENT,
 ADD CONSTRAINT fk_boletos FOREIGN KEY (id_boleto) REFERENCES boletos(id_boleto),
 ADD CONSTRAINT fk_eventos_boletos FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
 
 ALTER TABLE eventos_metodos
 ADD CONSTRAINT pk_em PRIMARY KEY (id, id_metodo, id_evento),
+CHANGE id id int NOT NULL AUTO_INCREMENT,
 ADD CONSTRAINT fk_metodos FOREIGN KEY (id_metodo) REFERENCES metodos_pago(id_metodo),
 ADD CONSTRAINT fk_eventos_metodos FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);

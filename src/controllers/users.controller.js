@@ -16,7 +16,7 @@ export const userController = {
       if (user[0]) {
         res.json(user[0])
       } else {
-        res.status(400).json({ msg: 'not exist user' })
+        res.status(400).json({ msg: 'user does not exist' })
       }
     } catch (error) {
       console.log(error)

@@ -4,19 +4,23 @@ export const eventController = {
   getAll: async (req, res) => {
     try {
       const events = await Event.getAll()
-      res.json(events)
+      res.status(200).json(events)
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
+      res.status(500).json({ msg: 'error getting all events' })
     }
   },
   getOne: async (req, res) => {
     try {
-      const events = await Event.getOne(req.params.id)
-      res.json(events[0])
+      const event = await Event.getOne(req.params.id)
+      if (event[0]) {
+        res.json(event[0])
+      } else {
+        res.status(400).json({ msg: 'event does not exist' })
+      }
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
+      res.status(500).json({ msg: 'error getting event' })
     }
   },
   postOne: async (req, res) => {
@@ -26,7 +30,17 @@ export const eventController = {
       res.json(resp[0])
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
+      res.status(500).json({ msg: 'error' })
+    }
+  },
+  postOneTicket: async (req, res) => {
+    try {
+      console.log(req.body)
+      const resp = await Event.postOneTicket(req.params.id, req.params.idt)
+      res.json(resp[0])
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'error' })
     }
   },
   updateOne: async (req, res) => {
@@ -36,7 +50,7 @@ export const eventController = {
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
+      res.status(500).json({ msg: 'error' })
     }
   },
   deleteOne: async (req, res) => {
@@ -45,7 +59,7 @@ export const eventController = {
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
+      res.status(500).json({ msg: 'error' })
     }
   }
 }

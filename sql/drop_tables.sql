@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS usuarios_eventos_crean;
 DROP TABLE IF EXISTS usuarios_eventos_reservan;
 DROP TABLE IF EXISTS eventos_metodos;
 DROP TABLE IF EXISTS eventos_categorias;
+DROP TABLE IF EXISTS eventos_boletos;
 DROP TABLE IF EXISTS usuarios;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS permisos;

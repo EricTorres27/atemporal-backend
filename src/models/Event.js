@@ -10,6 +10,9 @@ const Event = {
   postOne: (data) => {
     return knex('eventos').insert(data)
   },
+  postOneTicket: (id, idt) => {
+    return knex('eventos_boletos').insert({ id_evento: id, id_boleto: idt })
+  },
   updateOne: (id, data) => { // data = {}
     return knex('eventos').where('id_evento', id).update(data)
   },
