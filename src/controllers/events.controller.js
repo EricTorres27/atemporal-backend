@@ -25,18 +25,8 @@ export const eventController = {
   },
   postOne: async (req, res) => {
     try {
-      console.log(req.body)
-      const resp = await Event.postOne(req.body)
-      res.json(resp[0])
-    } catch (error) {
-      console.log(error)
-      res.status(500).json({ msg: 'error' })
-    }
-  },
-  postOneTicket: async (req, res) => {
-    try {
-      console.log(req.body)
-      const resp = await Event.postOneTicket(req.params.id, req.params.idt)
+      console.log(req.body.event)
+      const resp = await Event.postOne(req.body.event)
       res.json(resp[0])
     } catch (error) {
       console.log(error)
