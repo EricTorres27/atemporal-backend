@@ -7,7 +7,7 @@ use atemporal;
 CREATE TABLE usuarios (
     id_usuario int NOT NULL,
     id_rol int,
-    es_admin boolean NOT NULL DEFAULT 0,
+    typeUser varchar(255) NOT NULL DEFAULT "general",
     nombre varchar(255) NOT NULL,
     celular varchar(255) NOT NULL,
     email varchar(255),

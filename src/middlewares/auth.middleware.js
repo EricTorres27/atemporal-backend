@@ -10,6 +10,7 @@ export const verifyToken = (req, res, next) => {
   }
 
   const token = authorization.split(' ')[1]
+  console.log(token, '😀')
 
   const decodedToken = authUtil.verifyToken(token)
 

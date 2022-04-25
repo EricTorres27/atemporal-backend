@@ -7,13 +7,14 @@ const createAccountSchema = Joi.object({
   celular: Joi.string().min(10).max(10).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(8).required(),
-  es_admin: Joi.boolean()
+  typeUser: Joi.string()
 })
 
 export const validateCreateAccount = async (req, res, next) => {
   const { body } = req
   const validation = await validateSchema(createAccountSchema, body)
   if (validation.err) {
+    console.log(validation.err)
     res.status(400).json({ msg: validation.err })
     return
   }
