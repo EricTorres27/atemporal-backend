@@ -1,4 +1,5 @@
 import { Event } from '../models/Event'
+import { Ticket } from '../models/Ticket'
 
 export const eventController = {
   getAll: async (req, res) => {
@@ -26,11 +27,13 @@ export const eventController = {
   postOne: async (req, res) => {
     try {
       console.log(req.body.event)
-      const resp = await Event.postOne(req.body.event)
-      res.json(resp[0])
+      const respE = await Event.postOne(req.body.event)
+      console.log(req.body.ticket)
+      const respT = await Ticket.postOne(req.body.ticket)
+      return res.status(200).json(respE[0])
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'error' })
+      return res.status(500).json({ msg: 'error' })
     }
   },
   updateOne: async (req, res) => {
@@ -40,7 +43,7 @@ export const eventController = {
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'error' })
+      return res.status(500).json({ msg: 'error' })
     }
   },
   deleteOne: async (req, res) => {

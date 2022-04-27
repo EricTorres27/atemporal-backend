@@ -27,10 +27,10 @@ export const ticketController = {
     try {
       console.log(req.body)
       const resp = await Ticket.postOne(req.body)
-      res.json(resp[0])
+      return res.json(resp[0])
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
+      return res.json({ msg: 'error' })
     }
   },
   updateOne: async (req, res) => {

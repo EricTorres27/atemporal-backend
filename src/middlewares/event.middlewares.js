@@ -21,10 +21,11 @@ const createEventSchema = Joi.object({
 })
 
 export const validateCreateEvent = async (req, res, next) => {
-  const { body } = req.body.event
-  const validation = await validateSchema(createEventSchema, body)
+  const { event } = req.body
+  const validation = await validateSchema(createEventSchema, event)
   if (validation.err) {
     res.status(400).json({ msg: validation.err })
+    console.log(event)
     return
   }
   next()
