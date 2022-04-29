@@ -35,3 +35,17 @@ export const validateLogin = async (req, res, next) => {
   }
   next()
 }
+
+// recover password
+const passwordSchema = Joi.object({
+  email: Joi.string().email().required()
+})
+export const validatePassword = async (req, res, next) => {
+  const { body } = req
+  const validation = await validateSchema(passwordSchema, body)
+  if (validation.err) {
+    res.status(400).json({ msg: validation.err })
+    return
+  }
+  next()
+}

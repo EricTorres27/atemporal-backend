@@ -15,6 +15,7 @@ CREATE TABLE usuarios (
     auth_google integer,
     esta_activo boolean NOT NULL DEFAULT 1,
     foto_cuenta varchar(255),
+    token_recover varchar(255) NOT NULL DEFAULT "",
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
