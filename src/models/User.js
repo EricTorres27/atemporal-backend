@@ -25,6 +25,7 @@ export const User = {
   updateUserByField: (id, field, data) => {
     return knex('usuarios')
       .where('id_usuario', '=', id)
+      .where('esta_activo', 1)
       .update({
         [field]: data
       })

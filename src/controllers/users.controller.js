@@ -1,4 +1,5 @@
 import { User } from '../models/User'
+import { hashUtil } from '../utils/hash'
 
 export const userController = {
   getAll: async (req, res) => {
@@ -49,7 +50,7 @@ export const userController = {
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
+      res.json({ msg: 'Error al eliminar el usuario' })
     }
   },
   whoIam: async (req, res) => {
@@ -58,7 +59,21 @@ export const userController = {
       const [user] = await User.getOnebyId(req.body.id)
       res.status(200).json(user)
     } catch (error) {
-      res.status(500).json({ msg: 'error in get data user' })
+      res.status(500).json({ msg: 'Error al consultar el usuario' })
+    }
+  },
+  recoverPassword: async (req, res) => {
+    try {
+      const passwordHashed = await hashUtil.createHash(req.body.password)
+      const resp = await User.updateUserByField(
+        req.body.id,
+        'password',
+        passwordHashed
+      )
+      console.log(resp, '🤞')
+      res.status(200).json({ msg: 'Password actualizada' })
+    } catch (error) {
+      res.status(500).json({ msg: 'Lo sentimos intenta más tarde' })
     }
   }
 }

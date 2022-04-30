@@ -40,6 +40,7 @@ export const authController = {
         return
       }
       const token = authUtil.createToken({ id: user.id_usuario })
+      console.log(token)
       res.status(200).json({ token })
     } catch (error) {
       console.log(error)
@@ -74,10 +75,13 @@ export const authController = {
       // Message object
       const message = {
         from: 'atemporal@test.com',
-        to: 'danielcu@alternet.com.mx',
-        subject: 'Nodemailer is unicode friendly ✔',
-        text: 'Hello to myself!',
-        html: '<p><b>Hello</b> to myself!</p>'
+        to: `${email}`,
+        subject: 'Reestablece tu contraseña ✔',
+        text: 'Atemporal, la mejor plataforma de eventos',
+        html: `
+        <p>Da clic en el enlace para reestablecer tu constraseña, este enlace caduca en 5 minutos</p>
+        <a href="http://localhost:3000/cambiar-password/${token}">Clic aqui para reestablecer tu contraseña</a>
+        `
       }
 
       transporter.sendMail(message, (err, info) => {
