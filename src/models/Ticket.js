@@ -10,6 +10,9 @@ const Ticket = {
   postOne: (data) => {
     return knex('boletos').insert(data)
   },
+  postOneRelation: (idEvent,idTicket) => {
+    return knex('eventos_boletos').insert({id_boleto: idTicket, id_evento: idEvent})
+  },
   updateOne: (id, data) => { // data = {}
     return knex('boletos').where('id_boleto', id).update(data)
   },
