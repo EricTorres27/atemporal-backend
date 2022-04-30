@@ -1,5 +1,4 @@
 import { User } from '../models/User'
-import { Event } from '../models/Event'
 import { authUtil } from '../utils/auth'
 import { hashUtil } from '../utils/hash'
 
@@ -44,18 +43,6 @@ export const authController = {
     } catch (error) {
       console.log(error)
       res.status(500).json({ msg: 'error in login' })
-    }
-  },
-  registerEvent: async (req, res) => {
-    try {
-      console.log(req.body)
-      const event = req.body
-      const [idEventCreated] = await Event.postOne(event)
-      console.log(idEventCreated)
-      res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated })
-    } catch (error) {
-      console.error(error)
-      res.status(500).json({ msg: 'error registering event' })
     }
   }
 }

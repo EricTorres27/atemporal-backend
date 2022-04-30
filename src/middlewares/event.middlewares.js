@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import { validateSchema } from '../utils/validator'
 
-// Create event
+// Create event & ticket
 const createEventSchema = Joi.object({
   nombre_organizador: Joi.string().min(5).max(50).required(),
   celular_organizador_principal: Joi.string().min(10).max(10).required(),
@@ -17,16 +17,32 @@ const createEventSchema = Joi.object({
   tipo_cobro: Joi.boolean().required(),
   foto_evento: Joi.string().min(10).max(100).required(),
   archivo_itinerario: Joi.string().min(10).max(500).required(),
-  esta_activo: Joi.boolean().required()
+  esta_activo: Joi.boolean()
+})
+
+const createTicketSchema = Joi.object({
+  nombre: Joi.string().min(5).max(50).required(),
+  cantidad: Joi.number().integer(),
+  esta_activo: Joi.boolean()
 })
 
 export const validateCreateEvent = async (req, res, next) => {
   const { event } = req.body
-  const validation = await validateSchema(createEventSchema, event)
-  if (validation.err) {
-    res.status(400).json({ msg: validation.err })
-    console.log(event)
+
+  const { ticket } = req.body 
+
+  const validationEvent = await validateSchema(createEventSchema, event)
+  const validationTicket = await validateSchema(createTicketSchema, ticket)
+
+
+  if (validationEvent.err) {
+    res.status(400).json({ msg: validationEvent.err })
+    return
+  } else if(validationTicket.err){
+    res.status(400).json({ msg: validationTicket.err })
     return
   }
+
   next()
+
 }
