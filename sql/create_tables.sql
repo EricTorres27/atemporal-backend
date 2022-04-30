@@ -209,3 +209,13 @@ ALTER TABLE eventos_metodos
 ADD CONSTRAINT pk_em PRIMARY KEY (id, id_metodo, id_evento),
 ADD CONSTRAINT fk_metodos FOREIGN KEY (id_metodo) REFERENCES metodos_pago(id_metodo),
 ADD CONSTRAINT fk_eventos_metodos FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
+
+/* AUTOINCREMENTS*/
+
+ALTER TABLE usuarios_eventos_crean MODIFY COLUMN id INT AUTO_INCREMENT
+ALTER TABLE usuarios_eventos_reservan MODIFY COLUMN id INT AUTO_INCREMENT;
+ALTER TABLE eventos_categorias MODIFY COLUMN id INT AUTO_INCREMENT;
+ALTER TABLE eventos_boletos MODIFY COLUMN id INT AUTO_INCREMENT;
+ALTER TABLE eventos_metodos MODIFY COLUMN id INT AUTO_INCREMENT;
+
+
