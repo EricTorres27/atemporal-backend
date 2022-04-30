@@ -54,5 +54,17 @@ export const eventController = {
       console.log(error)
       res.status(500).json({ msg: 'error' })
     }
+  },
+    registerEvent: async (req, res) => {
+    try {
+      console.log(req.body)
+      const event = req.body
+      const [idEventCreated] = await Event.postOne(event)
+      console.log(idEventCreated)
+      res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated })
+    } catch (error) {
+      console.error(error)
+      res.status(500).json({ msg: 'error registering event' })
+    }
   }
 }
