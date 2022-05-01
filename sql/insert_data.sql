@@ -23,3 +23,38 @@ VALUES (
 /* INSERTS PARA BOLETO*/
 
 INSERT INTO `boletos` (`id_boleto`, `nombre`, `cantidad`, `esta_activo`, `fecha_creado`, `fecha_actualizado`) VALUES (NULL, 'Boleto general', NULL, '1', current_timestamp(), current_timestamp());
+ 
+ /* INSETS PARA CATEGORIAS */
+
+ INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Formacion", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Arte", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Difusión", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Recreacion", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Cultura", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Deporte", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Al aire libre", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Seminario", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Educacíon", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Voluntariado", "1");
+
+INSERT INTO categorias (nombre, esta_activo)
+  VALUES  ("Divulgacion", "1");

@@ -29,20 +29,18 @@ const createTicketSchema = Joi.object({
 export const validateCreateEvent = async (req, res, next) => {
   const { event } = req.body
 
-  const { ticket } = req.body 
+  const { ticket } = req.body
 
   const validationEvent = await validateSchema(createEventSchema, event)
   const validationTicket = await validateSchema(createTicketSchema, ticket)
 
-
   if (validationEvent.err) {
     res.status(400).json({ msg: validationEvent.err })
     return
-  } else if(validationTicket.err){
+  } else if (validationTicket.err) {
     res.status(400).json({ msg: validationTicket.err })
     return
   }
 
   next()
-
 }

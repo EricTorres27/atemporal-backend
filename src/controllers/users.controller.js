@@ -8,7 +8,7 @@ export const userController = {
       res.status(200).json(users)
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'error getting all users' })
+      res.status(500).json({ msg: 'Error al extraer los usuarios' })
     }
   },
   getOne: async (req, res) => {
@@ -21,7 +21,7 @@ export const userController = {
       }
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error getting user' })
+      res.status(500).json({ msg: 'error getting user' })
     }
   },
   postOneAdmin: async (req, res) => {
@@ -50,7 +50,7 @@ export const userController = {
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'Error al eliminar el usuario' })
+      res.status(500).json({ msg: 'Error al borrar el usuario' })
     }
   },
   whoIam: async (req, res) => {

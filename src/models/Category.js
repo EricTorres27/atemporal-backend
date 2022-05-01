@@ -4,7 +4,7 @@ const Category = {
   getAll: () => {
     return knex.select().table('categorias').where('esta_activo', 1)
   },
-  getOne: (id) => {
+  getOnebyId: (id) => {
     return knex.select().table('categorias').where('id_categoria', id).where('esta_activo', 1)
   },
   postOne: (data) => {
