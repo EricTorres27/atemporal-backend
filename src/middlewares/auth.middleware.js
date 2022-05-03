@@ -45,7 +45,7 @@ export const authMiddleware = {
 
       const token = authorization.split(' ')[1]
 
-      const decodedToken = authUtil.verifyToken(token)
+      const decodedToken = authUtil.verifyToken(token, 'recover-password')
 
       if (!decodedToken) {
         res.status(500).json({ msg: 'Ups, enlace inválido' })

@@ -1,6 +1,7 @@
 import { User } from '../models/User'
 import { authUtil } from '../utils/auth'
 import { hashUtil } from '../utils/hash'
+import globalConfig from '../config'
 import nodemailer from 'nodemailer'
 
 export const authController = {
@@ -20,7 +21,7 @@ export const authController = {
       }
       const [idUserCreated] = await User.postOne(user)
       console.log(idUserCreated)
-      const token = authUtil.createToken({ id: idUserCreated })
+      const token = authUtil.createTokenLogin({ id: idUserCreated })
       res.status(201).json({ token: token })
     } catch (error) {
       console.error(error)
@@ -39,7 +40,7 @@ export const authController = {
         res.status(400).json({ msg: 'Credenciales incorrectas' })
         return
       }
-      const token = authUtil.createToken({ id: user.id_usuario })
+      const token = authUtil.createTokenLogin({ id: user.id_usuario })
       console.log(token)
       res.status(200).json({ token })
     } catch (error) {
@@ -64,17 +65,10 @@ export const authController = {
       // enviar email recover con el token
 
       // Create a SMTP transporter object
-      const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587,
-        auth: {
-          user: 'atemporal.ac@gmail.com',
-          pass: 'atemporal12$'
-        }
-      })
+      const transporter = nodemailer.createTransport(globalConfig.SMTP_CREDENTIALS)
       // Message object
       const message = {
-        from: 'atemporal@test.com',
+        from: 'noreplay@atemporal.art',
         to: `${email}`,
         subject: 'Reestablece tu contraseña ✔',
         text: 'Atemporal, la mejor plataforma de eventos',
