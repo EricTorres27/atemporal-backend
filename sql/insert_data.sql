@@ -116,4 +116,4 @@ INSERT INTO categorias (nombre, esta_activo)
   VALUES  ("Voluntariado", "1");
 
 INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Divulgacion", "1");
+  VALUES  ("Divulgacion Científica", "1");
