@@ -30,7 +30,17 @@ export const eventController = {
       const respE = await Event.postOne(req.body.event)
       console.log(req.body.ticket)
       const respT = await Ticket.postOne(req.body.ticket)
-      return res.status(200).json(respE[0])
+      return res.status(201).json(respE[0])
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ msg: 'error' })
+    }
+  },
+  registerAttendee: async (req, res) => {
+    try {
+      console.log(req.body)
+      const respE = await Event.registerAttendee(req.params.id,req.body)
+      return res.status(201).json(respE[0])
     } catch (error) {
       console.log(error)
       return res.status(500).json({ msg: 'error' })
