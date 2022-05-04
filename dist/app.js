@@ -11,7 +11,7 @@ var _routes = require("./routes");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 // Constantes
-var PORT = 4000;
+var PORT = process.env.PORT || 4000;
 var app = (0, _express["default"])();
 app.disable('etag'); // Middlewares
 
