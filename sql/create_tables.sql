@@ -69,6 +69,7 @@ CREATE TABLE boletos (
     id_boleto int NOT NULL,
     nombre varchar(255) NOT NULL,
     cantidad int,
+    precio int,
     esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

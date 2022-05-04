@@ -9,8 +9,8 @@ router.get('/:id', eventController.getOne)
 
 router.post('/', eventController.postOne)
 
-//router.post('/registrar_evento', validateCreateEvent, eventController.registerEvent)
-router.post('/:id/registro/', eventController.registerAttendee)
+router.post('/registrar_evento', validateCreateEvent, eventController.registerEvent)
+//router.post('/:id/registro/', eventController.registerAttendee)
 
 router.put('/:id', eventController.updateOne)
 

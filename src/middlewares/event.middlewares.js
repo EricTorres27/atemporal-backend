@@ -23,6 +23,7 @@ const createEventSchema = Joi.object({
 const createTicketSchema = Joi.object({
   nombre: Joi.string().min(5).max(50).required(),
   cantidad: Joi.number().integer(),
+  precio: Joi.number().integer().required(),
   esta_activo: Joi.boolean()
 })
 
