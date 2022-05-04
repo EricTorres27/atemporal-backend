@@ -1,29 +1,22 @@
-import globalConfig, { MODE_CONFIG } from '../config'
+import globalConfig from '../config'
 import fs from 'fs'
 import path from 'path'
 
-const DEV_CONFIG = {
-  host: globalConfig.DATABASE.host,
-  port: globalConfig.DATABASE.port,
-  user: globalConfig.DATABASE.user,
-  password: globalConfig.DATABASE.password,
-  database: globalConfig.DATABASE.database
-}
-
-const PRODUCTION_CONFIG = {
-  host: globalConfig.DATABASE.host,
-  port: globalConfig.DATABASE.port,
-  user: globalConfig.DATABASE.user,
-  password: globalConfig.DATABASE.password,
-  database: globalConfig.DATABASE.database,
-  ssl: {
-    ca: fs.readFileSync(path.join(__dirname, '/ca-certificate.crt'))
-  }
-}
-
 export const knex = require('knex')({
-  client: 'mysql',
-  connection: MODE_CONFIG === 'PRODUCTION' ? PRODUCTION_CONFIG : DEV_CONFIG,
+  client: 'mysql2',
+  connection: {
+    host: globalConfig.DATABASE.host,
+    port: globalConfig.DATABASE.port,
+    user: globalConfig.DATABASE.user,
+    password: globalConfig.DATABASE.password,
+    database: globalConfig.DATABASE.database
+  },
+  ssl: {
+    require: true,
+    rejectUnauthorized: false,
+    ca: fs.readFileSync(path.join(__dirname, '/ca-certificate.crt'))
+  },
+  debug: true,
   pool: {
     min: 0,
     max: 7
