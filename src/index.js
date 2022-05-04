@@ -4,7 +4,7 @@ require('colors')
 
 async function main () {
   await app.listen(PORT, () => {
-    console.log(`Example app listening on port ${PORT}`.bgWhite.red)
+    console.log(`Server is ready in ${PORT} 😎`.bgWhite.red)
   })
 }
 
