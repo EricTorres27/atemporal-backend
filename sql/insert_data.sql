@@ -1,5 +1,15 @@
 use atemporal;
 
+/* CREATE ADMIN USER */
+
+INSERT INTO usuarios(nombre, celular,email,`password`,typeUser)
+VALUES  (
+    "Daniel Cu",
+    "4424747493",
+    "danielcu@alternet.com.mx",
+    "password",
+    "admin"
+);
 /* INSERTS PARA EVENTOS */
 
 INSERT INTO `eventos` (
@@ -117,3 +127,4 @@ INSERT INTO categorias (nombre, esta_activo)
 
 INSERT INTO categorias (nombre, esta_activo)
   VALUES  ("Divulgacion Científica", "1");
+

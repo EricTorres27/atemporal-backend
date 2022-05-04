@@ -2,7 +2,7 @@ require('dotenv').config()
 const globalConfig = {
   DEV: {
     DATABASE: {
-      client: 'mysql',
+      client: 'mysql2',
       host: process.env.DB_HOST,
       database: process.env.DB_NAME_DATABASE,
       user: process.env.DB_USER,
@@ -31,7 +31,7 @@ const globalConfig = {
   },
   PRODUCTION: {
     DATABASE: {
-      client: 'mysql',
+      client: 'mysql2',
       host: process.env.DB_HOST,
       database: process.env.DB_NAME_DATABASE,
       user: process.env.DB_USER,
@@ -60,6 +60,7 @@ const globalConfig = {
   }
 }
 
-export const MODE = process.env.NODE_ENV === 'production' ? 'PRODUCTION' : 'DEV'
+export const MODE_CONFIG =
+  process.env.NODE_ENV === 'PRODUCTION' ? 'PRODUCTION' : 'DEV'
 
-export default globalConfig[MODE]
+export default globalConfig[MODE_CONFIG]
