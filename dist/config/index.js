@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.MODE = void 0;
+exports["default"] = exports.MODE_CONFIG = void 0;
 
 require('dotenv').config();
 
@@ -67,7 +67,7 @@ var globalConfig = {
     PORT: process.env.PORT
   }
 };
-var MODE = process.env.NODE_ENV === 'production' ? 'PRODUCTION' : 'DEV';
-exports.MODE = MODE;
-var _default = globalConfig[MODE];
+var MODE_CONFIG = process.env.NODE_ENV === 'PRODUCTION' ? 'PRODUCTION' : 'DEV';
+exports.MODE_CONFIG = MODE_CONFIG;
+var _default = globalConfig[MODE_CONFIG];
 exports["default"] = _default;
