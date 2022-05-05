@@ -16,7 +16,7 @@ export const knex = require('knex')({
     rejectUnauthorized: false,
     ca: fs.readFileSync(path.join(__dirname, '/ca-certificate.crt'))
   },
-  debug: true,
+  debug: false,
   pool: {
     min: 0,
     max: 7
@@ -27,9 +27,6 @@ export const knex = require('knex')({
     },
     error (message) {
       console.error(message)
-    },
-    deprecate (message) {
-      console.warn(message)
     }
   }
 })

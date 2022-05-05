@@ -20,7 +20,6 @@ export const authController = {
         password: passwordHashed
       }
       const [idUserCreated] = await User.postOne(user)
-      console.log(idUserCreated)
       const token = authUtil.createTokenLogin({ id: idUserCreated })
       res.status(201).json({ token: token })
     } catch (error) {
