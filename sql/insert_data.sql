@@ -95,6 +95,17 @@ INSERT INTO `boletos` (`nombre`, `cantidad`) VALUES ('Boleto general', NULL);
  
  /* INSETS PARA CATEGORIAS */
 
- INSERT INTO  `categorias` (`nombre`)
- VALUES ('Formacion'),('Arte'),('Difusión'),('Recreacion'),('Cultura'),('Deporte'),('Al aire libre'),('Seminario'),('Educacíon'),('Voluntariado'),('Divulgacion Científica');
+INSERT INTO  `categorias` (`nombre`)
+VALUES
+('Formacion'),
+('Arte'),
+('Difusión'),
+('Recreacion'),
+('Cultura'),
+('Deporte'),
+('Al aire libre'),
+('Seminario'),
+('Educacíon'),
+('Voluntariado'),
+('Divulgacion Científica');
 
