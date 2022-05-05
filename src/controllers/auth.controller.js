@@ -74,7 +74,7 @@ export const authController = {
         text: 'Atemporal, la mejor plataforma de eventos',
         html: `
         <p>Da clic en el enlace para reestablecer tu constraseña, este enlace caduca en 5 minutos</p>
-        <a href="http://localhost:3000/cambiar-password/${token}">Clic aqui para reestablecer tu contraseña</a>
+        <a href="${globalConfig.URL_FRONTEND}/cambiar-password/${token}">Clic aqui para reestablecer tu contraseña</a>
         `
       }
 

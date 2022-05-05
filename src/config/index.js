@@ -27,7 +27,8 @@ const globalConfig = {
         pass: process.env.SMTP_PASS
       }
     },
-    PORT: 4000
+    PORT: 4000,
+    URL_FRONTEND: process.env.URL_FRONTEND
   },
   PRODUCTION: {
     DATABASE: {
@@ -56,7 +57,8 @@ const globalConfig = {
         pass: process.env.SMTP_PASS
       }
     },
-    PORT: process.env.PORT
+    PORT: process.env.PORT,
+    URL_FRONTEND: process.env.URL_FRONTEND
   }
 }
 
