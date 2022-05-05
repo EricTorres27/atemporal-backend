@@ -67,12 +67,12 @@ export const eventController = {
   },
   registerEvent: async (req, res) => {
     try {
-      console.log(req.body)
+      console.log(req.body.event)
       const event = req.body.event
       const [idEventCreated] = await Event.postOne(event)
       console.log(idEventCreated)
 
-      console.log(req.body.event)
+      console.log(req.body.ticket)
       const ticket = req.body.ticket
       const [idTicketCreated] = await Ticket.postOne(ticket)
       console.log(idTicketCreated)
@@ -82,7 +82,7 @@ export const eventController = {
       res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' , ticket id: ' + idTicketCreated + ' and relation id: ' + idRelation })
     } catch (error) {
       console.error(error)
-      res.status(500).json({ msg: 'error registering event or ticket' })
+      res.status(500).json({ msg: 'error registering event' })
     }
   }
 }

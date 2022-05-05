@@ -28,7 +28,6 @@ INSERT INTO `eventos` (
   `tipo_cobro`,
   `foto_evento`,
   `itinerario_evento`,
-  `esta_activo`,
   `fecha_creado`,
   `fecha_actualizado`
   )
@@ -48,7 +47,6 @@ VALUES (
   '1',
   'https://images.pexels.com/photos/976866/pexels-photo-976866.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
   'https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxzZXJnaW90ZXN0YmlzfGd4OjYzOTk0MDZkMTUyM2M4Zjk',
-  '1',
   current_timestamp(),
   current_timestamp()
   ),
@@ -68,7 +66,6 @@ VALUES (
   '1',
   'https://i.blogs.es/5fe30d/fifa-21-intros_1/1366_2000.jpeg',
   'https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxzZXJnaW90ZXN0YmlzfGd4OjYzOTk0MDZkMTUyM2M4Zjk',
-  '1',
   current_timestamp(),
   current_timestamp()
   ),
@@ -88,47 +85,16 @@ VALUES (
   '1',
   'https://www.trendmexico.com/wp-content/uploads/2020/01/antros-de-moda-en-la-CDMX-2020-scaled.jpg',
   'https://docs.google.com/viewer?a=v&pid=sites&srcid=ZGVmYXVsdGRvbWFpbnxzZXJnaW90ZXN0YmlzfGd4OjYzOTk0MDZkMTUyM2M4Zjk',
-  '1',
   current_timestamp(),
   current_timestamp()
   );
 
 /* INSERTS PARA BOLETO*/
 
-INSERT INTO `boletos` (`id_boleto`, `nombre`, `cantidad`, `esta_activo`, `fecha_creado`, `fecha_actualizado`) VALUES (NULL, 'Boleto general', NULL, '1', current_timestamp(), current_timestamp());
+INSERT INTO `boletos` (`nombre`, `cantidad`) VALUES ('Boleto general', NULL);
  
  /* INSETS PARA CATEGORIAS */
 
- INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Formacion", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Arte", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Difusión", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Recreacion", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Cultura", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Deporte", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Al aire libre", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Seminario", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Educacíon", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Voluntariado", "1");
-
-INSERT INTO categorias (nombre, esta_activo)
-  VALUES  ("Divulgacion Científica", "1");
+ INSERT INTO  `categorias` (`nombre`)
+ VALUES ('Formacion'),('Arte'),('Difusión'),('Recreacion'),('Cultura'),('Deporte'),('Al aire libre'),('Seminario'),('Educacíon'),('Voluntariado'),('Divulgacion Científica');
 
