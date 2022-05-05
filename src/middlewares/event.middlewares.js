@@ -30,11 +30,7 @@ const createTicketSchema = Joi.object({
 export const validateCreateEvent = async (req, res, next) => {
   const { event } = req.body
 
-  var TPM = JSON.parse(event);
-
-  const { ticket } = req.body
-
-  if (alert(TPM.event.tipo_cobro)==true){
+  if(event.tipo_cobro === false){
     const validationEvent = await validateSchema(createEventSchema, event)
 
     if (validationEvent.err) {
@@ -44,18 +40,20 @@ export const validateCreateEvent = async (req, res, next) => {
 
     next()
 
-  }else{
-    const validationEvent = await validateSchema(createEventSchema, event)
-    const validationTicket = await validateSchema(createTicketSchema, ticket)
+  } else{
+      const { ticket } = req.body
 
-    if (validationEvent.err) {
-      res.status(400).json({ msg: validationEvent.err })
-      return
-    } else if (validationTicket.err) {
-      res.status(400).json({ msg: validationTicket.err })
-      return
-    }
+      const validationEvent = await validateSchema(createEventSchema, event)
+      const validationTicket = await validateSchema(createTicketSchema, ticket)
   
-    next()
+      if (validationEvent.err) {
+        res.status(400).json({ msg: validationEvent.err })
+        return
+      } else if (validationTicket.err) {
+        res.status(400).json({ msg: validationTicket.err })
+        return
+      }
+    
+      next()
+    }
   }
-}
