@@ -30,12 +30,6 @@ export const knex = require('knex')({
     },
     deprecate (message) {
       console.warn(message)
-    },
-    debug (message) {
-      console.info(message)
-    },
-    confirm (message) {
-      console.log(message)
     }
   }
 })
