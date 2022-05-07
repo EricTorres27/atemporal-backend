@@ -5,15 +5,16 @@ import { validateCreateEvent } from '../middlewares/event.middlewares'
 const router = Router()
 
 router.get('/', eventController.getAll)
-router.get('/:id', eventController.getOne)
+router.get('/:idEvento', eventController.getOne)
 
 router.post('/', eventController.postOne)
 
 router.post('/registrar_evento', validateCreateEvent, eventController.registerEvent)
-//router.post('/:id/registro/', eventController.registerAttendee)
+// router.post('/:id/registro/', eventController.registerAttendee)
 
-router.put('/:id', eventController.updateOne)
+router.put('/aprobar/:idEvento', eventController.aproveEvent)
+router.put('/:idEvento', eventController.updateOne)
 
-router.delete('/:id', eventController.deleteOne)
+router.delete('/:idEvento', eventController.deleteOne)
 
 module.exports = router

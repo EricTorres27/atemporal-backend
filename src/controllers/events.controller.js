@@ -1,10 +1,12 @@
+/* eslint-disable camelcase */
 import { Event } from '../models/Event'
 import { Ticket } from '../models/Ticket'
 
 export const eventController = {
   getAll: async (req, res) => {
     try {
-      const events = await Event.getAll()
+      const { esta_activo } = req.query
+      const events = await Event.getAll({ esta_activo: parseInt(esta_activo) })
       res.status(200).json(events)
     } catch (error) {
       console.log(error)
@@ -13,7 +15,7 @@ export const eventController = {
   },
   getOne: async (req, res) => {
     try {
-      const event = await Event.getOne(req.params.id)
+      const event = await Event.getOne(req.params.idEvento)
       if (event[0]) {
         res.json(event[0])
       } else {
@@ -29,7 +31,7 @@ export const eventController = {
       console.log(req.body.event)
       const respE = await Event.postOne(req.body.event)
       console.log(req.body.ticket)
-      const respT = await Ticket.postOne(req.body.ticket)
+      await Ticket.postOne(req.body.ticket)
       return res.status(201).json(respE[0])
     } catch (error) {
       console.log(error)
@@ -39,7 +41,7 @@ export const eventController = {
   registerAttendee: async (req, res) => {
     try {
       console.log(req.body)
-      const respE = await Event.registerAttendee(req.params.id,req.body)
+      const respE = await Event.registerAttendee(req.params.id, req.body)
       return res.status(201).json(respE[0])
     } catch (error) {
       console.log(error)
@@ -49,7 +51,16 @@ export const eventController = {
   updateOne: async (req, res) => {
     try {
       console.log(req.body)
-      const resp = await Event.updateOne(req.params.id, req.body)
+      const resp = await Event.updateOne(req.params.idEvento, req.body)
+      res.json({ rows_affected: resp })
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ msg: 'error' })
+    }
+  },
+  aproveEvent: async (req, res) => {
+    try {
+      const resp = await Event.updateOne(req.params.idEvento, { esta_activo: 1 })
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
@@ -58,7 +69,7 @@ export const eventController = {
   },
   deleteOne: async (req, res) => {
     try {
-      const resp = await Event.deleteOne(req.params.id)
+      const resp = await Event.deleteOne(req.params.idEvento)
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)

@@ -1,8 +1,10 @@
+/* eslint-disable camelcase */
 import { knex } from '../db'
 
 const Event = {
-  getAll: () => {
-    return knex.select().table('eventos').where('esta_activo', 1)
+  getAll: ({ esta_activo }) => {
+    console.log(esta_activo, '🐱‍🏍')
+    return knex.select().table('eventos').where({ esta_activo })
   },
   getOne: (id) => {
     return knex.select().table('eventos').where('id_evento', id).where('esta_activo', 1)
