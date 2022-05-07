@@ -134,7 +134,7 @@ CREATE TABLE eventos_categorias (
     id int NOT NULL,
     id_categoria int NOT NULL,
     id_evento int NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

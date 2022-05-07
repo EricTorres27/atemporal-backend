@@ -1,5 +1,6 @@
 import { Event } from '../models/Event'
 import { Ticket } from '../models/Ticket'
+import { Category } from '../models/Category'
 
 export const eventController = {
   getAll: async (req, res) => {
@@ -69,17 +70,20 @@ export const eventController = {
     try {
 
       const { event } = req.body
-
-      if(event.tipo_cobro === false){
-        const [idEventCreated] = await Event.postOne(event)
-        console.log(idEventCreated)
-
-        res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated })
-
-      }
+      const { categorias } = req.body
 
       const [idEventCreated] = await Event.postOne(event)
       console.log(idEventCreated)
+
+      for (let i = 0; i < categorias.length; i++){
+        await Category.postEventCategory(categorias[i].id,idEventCreated)
+      }
+
+      if(event.tipo_cobro === false){
+
+        res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated })
+        
+      }else{
 
       const { ticket } = req.body
       const [idTicketCreated] = await Ticket.postOne(ticket)
@@ -88,6 +92,8 @@ export const eventController = {
       const [idRelation] = await Ticket.postOneRelation(idEventCreated, idTicketCreated)
 
       res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' , ticket id: ' + idTicketCreated + ' and relation id: ' + idRelation })
+
+      }
 
     } catch (error) {
       console.error(error)

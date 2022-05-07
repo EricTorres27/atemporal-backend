@@ -24,26 +24,22 @@ const createTicketSchema = Joi.object({
   nombre: Joi.string().min(5).max(50).required(),
   cantidad: Joi.number().integer(),
   precio: Joi.number().integer().required(),
-  esta_activo: Joi.boolean()
 })
 
 export const validateCreateEvent = async (req, res, next) => {
   const { event } = req.body
+  const validationEvent = await validateSchema(createEventSchema, event)
 
   if(event.tipo_cobro === false){
-    const validationEvent = await validateSchema(createEventSchema, event)
 
     if (validationEvent.err) {
       res.status(400).json({ msg: validationEvent.err })
       return
     }
-
     next()
 
   } else{
       const { ticket } = req.body
-
-      const validationEvent = await validateSchema(createEventSchema, event)
       const validationTicket = await validateSchema(createTicketSchema, ticket)
   
       if (validationEvent.err) {
