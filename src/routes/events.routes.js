@@ -11,6 +11,7 @@ router.post('/', eventController.postOne)
 
 router.post('/registrar-evento', validateCreateEvent, eventController.registerEvent)
 router.post('/reservar', eventController.registerAttendee)
+router.delete('/cancelar-reservacion/:idUsuario', eventController.unregisterAttendee)
 
 router.put('/aprobar/:idEvento', eventController.aproveEvent)
 router.put('/:idEvento', eventController.updateOne)
