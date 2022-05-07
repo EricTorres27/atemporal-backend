@@ -112,7 +112,7 @@ export const eventController = {
 
         res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' and also its tickets' })
 
-        res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' , ticket id: ' + idTicketCreated + ' and relation id: ' + idRelation })
+        // esto deberia estar aqui
       }
     } catch (error) {
       console.error(error)
