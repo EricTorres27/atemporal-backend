@@ -79,33 +79,27 @@ export const eventController = {
   },
   registerEvent: async (req, res) => {
     try {
-
       const { event } = req.body
       const { categorias } = req.body
 
       const [idEventCreated] = await Event.postOne(event)
       console.log(idEventCreated)
 
-      for (let i = 0; i < categorias.length; i++){
-        await Category.postEventCategory(categorias[i].id,idEventCreated)
+      for (let i = 0; i < categorias.length; i++) {
+        await Category.postEventCategory(categorias[i].id, idEventCreated)
       }
 
-      if(event.tipo_cobro === false){
-
+      if (event.tipo_cobro === false) {
         res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated })
-        
-      }else{
+      } else {
+        const { ticket } = req.body
+        const [idTicketCreated] = await Ticket.postOne(ticket)
+        console.log(idTicketCreated)
 
-      const { ticket } = req.body
-      const [idTicketCreated] = await Ticket.postOne(ticket)
-      console.log(idTicketCreated)
+        const [idRelation] = await Ticket.postOneRelation(idEventCreated, idTicketCreated)
 
-      const [idRelation] = await Ticket.postOneRelation(idEventCreated, idTicketCreated)
-
-      res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' , ticket id: ' + idTicketCreated + ' and relation id: ' + idRelation })
-
+        res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' , ticket id: ' + idTicketCreated + ' and relation id: ' + idRelation })
       }
-
     } catch (error) {
       console.error(error)
       res.status(500).json({ msg: 'error registering event' })
