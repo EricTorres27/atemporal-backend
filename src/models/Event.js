@@ -12,8 +12,14 @@ const Event = {
   postOne: (data) => {
     return knex('eventos').insert(data)
   },
-  registerAttendee: (id, data) => {
-    return knex('usuarios_eventos_reservan').insert({ id_evento: id }, data)
+  registerEventCreation: (idUsuario, idEvento) => {
+    return knex('usuarios_eventos_crean').insert({id_usuario: idUsuario, id_evento: idEvento})
+  },
+  registerAttendee: (data) => {
+    return knex('usuarios_eventos_reservan').insert(data)
+  },
+  unregisterAttendee: (idUsuario) => {
+    return knex('usuarios_eventos_reservan').where('id_usuario', idUsuario).update({ esta_activo: false })
   },
   updateOne: (id, data) => { // data = {}
     return knex('eventos').where('id_evento', id).update(data)

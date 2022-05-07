@@ -104,8 +104,8 @@ CREATE TABLE usuarios_eventos_crean (
     id int NOT NULL,
     id_usuario int NOT NULL,
     id_evento int NOT NULL,
-    esta_aprobado boolean NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_aprobado boolean NOT NULL DEFAULT 0,
+    esta_activo boolean NOT NULL DEFAULT 0,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

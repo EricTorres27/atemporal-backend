@@ -7,10 +7,11 @@ const router = Router()
 router.get('/', eventController.getAll)
 router.get('/:idEvento', eventController.getOne)
 
-router.post('/', eventController.postOne)
+//router.post('/', eventController.postOne)
 
-router.post('/registrar_evento', validateCreateEvent, eventController.registerEvent)
-// router.post('/:id/registro/', eventController.registerAttendee)
+router.post('/registrar-evento', validateCreateEvent, eventController.registerEvent)
+router.post('/reservar', eventController.registerAttendee)
+router.delete('/cancelar-reservacion/:idUsuario', eventController.unregisterAttendee)
 
 router.put('/aprobar/:idEvento', eventController.aproveEvent)
 router.put('/:idEvento', eventController.updateOne)

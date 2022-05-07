@@ -42,7 +42,17 @@ export const eventController = {
   registerAttendee: async (req, res) => {
     try {
       console.log(req.body)
-      const respE = await Event.registerAttendee(req.params.id, req.body)
+      const respE = await Event.registerAttendee(req.body)
+      return res.status(201).json(respE[0])
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ msg: 'error' })
+    }
+  },
+  unregisterAttendee: async (req, res) => {
+    try {
+      console.log(req.body)
+      const respE = await Event.unregisterAttendee(req.params.idUsuario)
       return res.status(201).json(respE[0])
     } catch (error) {
       console.log(error)
@@ -80,10 +90,11 @@ export const eventController = {
   registerEvent: async (req, res) => {
     try {
       const { event } = req.body
+      const { idUsuario } = req.body
       const { categorias } = req.body
 
       const [idEventCreated] = await Event.postOne(event)
-      console.log(idEventCreated)
+      await Event.registerEventCreation(idUsuario.id_usuario, idEventCreated)
 
       for (let i = 0; i < categorias.length; i++) {
         await Category.postEventCategory(categorias[i].id, idEventCreated)
@@ -93,10 +104,13 @@ export const eventController = {
         res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated })
       } else {
         const { ticket } = req.body
-        const [idTicketCreated] = await Ticket.postOne(ticket)
-        console.log(idTicketCreated)
 
-        const [idRelation] = await Ticket.postOneRelation(idEventCreated, idTicketCreated)
+        for (let i = 0; i < ticket.length; i++) {
+          const [idTicketCreated] = await Ticket.postOne(ticket[i])
+          await Ticket.postOneRelation(idEventCreated, idTicketCreated)
+        }
+
+        res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' and also its tickets' })
 
         res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' , ticket id: ' + idTicketCreated + ' and relation id: ' + idRelation })
       }
