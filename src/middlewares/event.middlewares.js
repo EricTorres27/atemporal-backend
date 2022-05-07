@@ -40,13 +40,20 @@ export const validateCreateEvent = async (req, res, next) => {
 
   } else{
       const { ticket } = req.body
-      const validationTicket = await validateSchema(createTicketSchema, ticket)
-  
+
+      for (let i = 0; i < ticket.length; i++){
+        console.log(ticket[i])
+        const validationTicket = await validateSchema(createTicketSchema, ticket[i])
+
+        if (validationTicket.err) {
+          res.status(400).json({ msg: validationTicket.err })
+          return
+        }
+
+      }
+
       if (validationEvent.err) {
         res.status(400).json({ msg: validationEvent.err })
-        return
-      } else if (validationTicket.err) {
-        res.status(400).json({ msg: validationTicket.err })
         return
       }
     

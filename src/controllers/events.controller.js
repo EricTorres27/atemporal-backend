@@ -97,12 +97,15 @@ export const eventController = {
       }else{
 
       const { ticket } = req.body
-      const [idTicketCreated] = await Ticket.postOne(ticket)
-      console.log(idTicketCreated)
 
-      const [idRelation] = await Ticket.postOneRelation(idEventCreated, idTicketCreated)
+      for (let i = 0; i < ticket.length; i++){
+        
+        const [idTicketCreated] = await Ticket.postOne(ticket[i])
+        await Ticket.postOneRelation(idEventCreated, idTicketCreated)
 
-      res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' , ticket id: ' + idTicketCreated + ' and relation id: ' + idRelation })
+      }
+
+      res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' and also its tickets' })
 
       }
 
