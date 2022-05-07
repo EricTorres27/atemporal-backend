@@ -12,8 +12,8 @@ const Event = {
   postOne: (data) => {
     return knex('eventos').insert(data)
   },
-  registerAttendee: (id, data) => {
-    return knex('usuarios_eventos_reservan').insert({ id_evento: id }, data)
+  registerAttendee: (data) => {
+    return knex('usuarios_eventos_reservan').insert(data)
   },
   updateOne: (id, data) => { // data = {}
     return knex('eventos').where('id_evento', id).update(data)

@@ -41,9 +41,11 @@ export const eventController = {
   },
   registerAttendee: async (req, res) => {
     try {
+
       console.log(req.body)
-      const respE = await Event.registerAttendee(req.params.id, req.body)
+      const respE = await Event.registerAttendee(req.body)
       return res.status(201).json(respE[0])
+      
     } catch (error) {
       console.log(error)
       return res.status(500).json({ msg: 'error' })
@@ -99,7 +101,7 @@ export const eventController = {
       const { ticket } = req.body
 
       for (let i = 0; i < ticket.length; i++){
-        
+
         const [idTicketCreated] = await Ticket.postOne(ticket[i])
         await Ticket.postOneRelation(idEventCreated, idTicketCreated)
 
