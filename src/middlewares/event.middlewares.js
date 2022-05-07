@@ -24,38 +24,32 @@ const createTicketSchema = Joi.object({
   nombre: Joi.string().min(5).max(50).required(),
   cantidad: Joi.number().integer(),
   precio: Joi.number().integer().required(),
-  esta_activo: Joi.boolean()
 })
 
 export const validateCreateEvent = async (req, res, next) => {
   const { event } = req.body
+  const validationEvent = await validateSchema(createEventSchema, event)
 
-  var TPM = JSON.parse(event);
-
-  const { ticket } = req.body
-
-  if (alert(TPM.event.tipo_cobro)==true){
-    const validationEvent = await validateSchema(createEventSchema, event)
+  if(event.tipo_cobro === false){
 
     if (validationEvent.err) {
       res.status(400).json({ msg: validationEvent.err })
       return
     }
-
     next()
 
-  }else{
-    const validationEvent = await validateSchema(createEventSchema, event)
-    const validationTicket = await validateSchema(createTicketSchema, ticket)
-
-    if (validationEvent.err) {
-      res.status(400).json({ msg: validationEvent.err })
-      return
-    } else if (validationTicket.err) {
-      res.status(400).json({ msg: validationTicket.err })
-      return
-    }
+  } else{
+      const { ticket } = req.body
+      const validationTicket = await validateSchema(createTicketSchema, ticket)
   
-    next()
+      if (validationEvent.err) {
+        res.status(400).json({ msg: validationEvent.err })
+        return
+      } else if (validationTicket.err) {
+        res.status(400).json({ msg: validationTicket.err })
+        return
+      }
+    
+      next()
+    }
   }
-}

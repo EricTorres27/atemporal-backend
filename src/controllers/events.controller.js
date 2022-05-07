@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { Event } from '../models/Event'
 import { Ticket } from '../models/Ticket'
+import { Category } from '../models/Category'
 
 export const eventController = {
   getAll: async (req, res) => {
@@ -78,19 +79,33 @@ export const eventController = {
   },
   registerEvent: async (req, res) => {
     try {
-      console.log(req.body.event)
-      const event = req.body.event
+
+      const { event } = req.body
+      const { categorias } = req.body
+
       const [idEventCreated] = await Event.postOne(event)
       console.log(idEventCreated)
 
-      console.log(req.body.ticket)
-      const ticket = req.body.ticket
+      for (let i = 0; i < categorias.length; i++){
+        await Category.postEventCategory(categorias[i].id,idEventCreated)
+      }
+
+      if(event.tipo_cobro === false){
+
+        res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated })
+        
+      }else{
+
+      const { ticket } = req.body
       const [idTicketCreated] = await Ticket.postOne(ticket)
       console.log(idTicketCreated)
 
       const [idRelation] = await Ticket.postOneRelation(idEventCreated, idTicketCreated)
 
       res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' , ticket id: ' + idTicketCreated + ' and relation id: ' + idRelation })
+
+      }
+
     } catch (error) {
       console.error(error)
       res.status(500).json({ msg: 'error registering event' })
