@@ -118,6 +118,8 @@ export const eventController = {
         const [idTicketCreated] = await Ticket.postOne(ticket[i])
         await Ticket.postOneRelation(idEventCreated, idTicketCreated)
 
+        //esto deberia estar aqui
+
       }
 
       res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' and also its tickets' })
