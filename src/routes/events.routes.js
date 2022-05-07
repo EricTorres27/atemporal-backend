@@ -7,7 +7,7 @@ const router = Router()
 router.get('/', eventController.getAll)
 router.get('/:idEvento', eventController.getOne)
 
-router.post('/', eventController.postOne)
+//router.post('/', eventController.postOne)
 
 router.post('/registrar-evento', validateCreateEvent, eventController.registerEvent)
 router.post('/reservar', eventController.registerAttendee)
