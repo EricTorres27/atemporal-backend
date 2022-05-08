@@ -109,3 +109,9 @@ VALUES
 ('Voluntariado'),
 ('Divulgacion Científica');
 
+INSERT INTO  `metodos_pago` (`nombre`)
+VALUES
+('Efectivo'),
+('Transferencia'),
+('Paypal');
+

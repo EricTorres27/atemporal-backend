@@ -65,12 +65,25 @@ export const userController = {
   recoverPassword: async (req, res) => {
     try {
       const passwordHashed = await hashUtil.createHash(req.body.password)
-      const updated = await User.updateUserByField(
+      await User.updateUserByField(
         req.body.id,
         'password',
         passwordHashed
       )
-      console.log(updated, '🤞')
+      res.status(200).json({ msg: 'Password actualizada' })
+    } catch (error) {
+      res.status(500).json({ msg: 'Lo sentimos intentalo más tarde' })
+    }
+  },
+  updatePassword: async (req, res) => {
+    try {
+      console.log(req.body, req.params)
+      const passwordHashed = await hashUtil.createHash(req.body.password)
+      await User.updateUserByField(
+        req.params.id,
+        'password',
+        passwordHashed
+      )
       res.status(200).json({ msg: 'Password actualizada' })
     } catch (error) {
       res.status(500).json({ msg: 'Lo sentimos intentalo más tarde' })
