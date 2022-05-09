@@ -2,7 +2,7 @@ require('dotenv').config()
 const globalConfig = {
   DEV: {
     DATABASE: {
-      client: 'mysql',
+      client: 'mysql2',
       host: process.env.DB_HOST,
       database: process.env.DB_NAME_DATABASE,
       user: process.env.DB_USER,
@@ -27,11 +27,12 @@ const globalConfig = {
         pass: process.env.SMTP_PASS
       }
     },
-    PORT: 4000
+    PORT: 4000,
+    URL_FRONTEND: process.env.URL_FRONTEND
   },
   PRODUCTION: {
     DATABASE: {
-      client: 'mysql',
+      client: 'mysql2',
       host: process.env.DB_HOST,
       database: process.env.DB_NAME_DATABASE,
       user: process.env.DB_USER,
@@ -56,10 +57,12 @@ const globalConfig = {
         pass: process.env.SMTP_PASS
       }
     },
-    PORT: process.env.PORT
+    PORT: process.env.PORT,
+    URL_FRONTEND: process.env.URL_FRONTEND
   }
 }
 
-export const MODE = process.env.NODE_ENV === 'production' ? 'PRODUCTION' : 'DEV'
+export const MODE_CONFIG =
+  process.env.NODE_ENV === 'PRODUCTION' ? 'PRODUCTION' : 'DEV'
 
-export default globalConfig[MODE]
+export default globalConfig[MODE_CONFIG]

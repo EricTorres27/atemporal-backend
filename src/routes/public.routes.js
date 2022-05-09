@@ -7,6 +7,7 @@ import { userMiddleware } from '../middlewares/user.middlewares'
 
 const router = Router()
 
+router.get('/', (req, res) => res.json({ msg: 'Server is running 🐱‍🏍' }))
 router.get('/eventos', eventController.getAll)
 router.get('/eventos/:id', eventController.getOne)
 router.post('/register',

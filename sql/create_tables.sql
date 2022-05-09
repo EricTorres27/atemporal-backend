@@ -39,19 +39,20 @@ CREATE TABLE permisos (
 CREATE TABLE eventos (
     id_evento int NOT NULL,
     nombre_organizador varchar(255) NOT NULL,
-    celular_organizador_principal varchar(255) NOT NULL,
-    celular_organizador_secundario varchar(255) NOT NULL,
+    celular_principal varchar(255) NOT NULL,
+    celular_secundario varchar(255) NOT NULL,
     nombre_evento varchar(255) NOT NULL,
-    fecha_evento date NOT NULL,
+    descripcion varchar(1200) NOT NULL,
     hora_inicio varchar(255) NOT NULL,
     hora_final varchar(255) NOT NULL,
-    ubicacion varchar(255) NOT NULL,
-    descripcion varchar(1000) NOT NULL,
-    direccion varchar(500) NOT NULL,
-    url_video varchar(255) NOT NULL,
-    tipo_cobro boolean NOT NULL,
+    fecha_evento date NOT NULL,
+    lugar varchar(255) NOT NULL,
+    ubicacion_maps varchar(255) NOT NULL,
     foto_evento varchar(255) NOT NULL,
-    archivo_itinerario varchar(255) NOT NULL,
+    direccion varchar(1000) NOT NULL,
+    url_video varchar(255) NOT NULL,
+    itinerario_evento varchar(255) NOT NULL,
+    tipo_cobro boolean NOT NULL,
     esta_activo boolean NOT NULL DEFAULT 0,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -60,7 +61,7 @@ CREATE TABLE eventos (
 CREATE TABLE categorias (
     id_categoria int NOT NULL,
     nombre varchar(255) NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -69,6 +70,7 @@ CREATE TABLE boletos (
     id_boleto int NOT NULL,
     nombre varchar(255) NOT NULL,
     cantidad int,
+    precio int,
     esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -77,7 +79,7 @@ CREATE TABLE boletos (
 CREATE TABLE metodos_pago (
     id_metodo int NOT NULL,
     nombre varchar(255) NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -102,8 +104,8 @@ CREATE TABLE usuarios_eventos_crean (
     id int NOT NULL,
     id_usuario int NOT NULL,
     id_evento int NOT NULL,
-    esta_aprobado boolean NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_aprobado boolean NOT NULL DEFAULT 0,
+    esta_activo boolean NOT NULL DEFAULT 0,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -112,9 +114,9 @@ CREATE TABLE usuarios_eventos_reservan (
     id int NOT NULL,
     id_usuario int NOT NULL,
     id_evento int NOT NULL,
-    asistencia boolean NOT NULL,
+    asistencia boolean NOT NULL DEFAULT 0,
     codigo_qr varchar(255) NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -132,7 +134,7 @@ CREATE TABLE eventos_categorias (
     id int NOT NULL,
     id_categoria int NOT NULL,
     id_evento int NOT NULL,
-    esta_activo boolean NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

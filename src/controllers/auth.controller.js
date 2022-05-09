@@ -20,7 +20,6 @@ export const authController = {
         password: passwordHashed
       }
       const [idUserCreated] = await User.postOne(user)
-      console.log(idUserCreated)
       const token = authUtil.createTokenLogin({ id: idUserCreated })
       res.status(201).json({ token: token })
     } catch (error) {
@@ -74,7 +73,7 @@ export const authController = {
         text: 'Atemporal, la mejor plataforma de eventos',
         html: `
         <p>Da clic en el enlace para reestablecer tu constraseña, este enlace caduca en 5 minutos</p>
-        <a href="http://localhost:3000/cambiar-password/${token}">Clic aqui para reestablecer tu contraseña</a>
+        <a href="${globalConfig.URL_FRONTEND}/cambiar-password/${token}">Clic aqui para reestablecer tu contraseña</a>
         `
       }
 
