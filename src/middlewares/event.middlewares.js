@@ -12,7 +12,7 @@ const createEventSchema = Joi.object({
   hora_final: Joi.string().min(5).max(5).required(),
   lugar: Joi.string().max(200).required(),
   descripcion: Joi.string().max(1200).required(),
-  ubicacion_maps: Joi.string().max(500).required(),
+  //ubicacion_maps: Joi.string().max(500).required(),
   direccion: Joi.string().min(10).max(500).required(),
   url_video: Joi.string().min(10).max(500).required(),
   tipo_cobro: Joi.boolean().required(),
