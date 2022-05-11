@@ -13,7 +13,7 @@ const Event = {
     return knex('eventos').insert(data)
   },
   registerEventCreation: (idUsuario, idEvento) => {
-    return knex('usuarios_eventos_crean').insert({id_usuario: idUsuario, id_evento: idEvento})
+    return knex('usuarios_eventos_crean').insert({ id_usuario: idUsuario, id_evento: idEvento })
   },
   registerAttendee: (data) => {
     return knex('usuarios_eventos_reservan').insert(data)
@@ -25,7 +25,12 @@ const Event = {
     return knex('eventos').where('id_evento', id).update(data)
   },
   deleteOne: (id) => { // data = {}
-    return knex('evento').where('id_evento', id).update({ esta_activo: false })
+    return knex('eventos').where('id_evento', id).update({ esta_activo: false })
+  },
+  getEventsByCategory: (id) => {
+    console.log(id)
+    return knex.select().from('eventos').innerJoin('eventos_categorias', 'eventos.id_evento', 'eventos_categorias.id_evento').where('eventos_categorias.id_categoria', id)
+    /* SELECT * FROM eventos e INNER JOIN eventos_categorias ec ON e.id_evento = ec.id_evento  WHERE ec.id_categoria = 4; */
   }
 }
 

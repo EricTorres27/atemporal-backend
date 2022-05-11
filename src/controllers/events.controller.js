@@ -118,5 +118,14 @@ export const eventController = {
       console.error(error)
       res.status(500).json({ msg: 'error registering event' })
     }
+  },
+  getEventsByCategory: async (req, res) => {
+    try {
+      const events = await Event.getEventsByCategory(req.params.idCategoria)
+      res.status(200).json(events)
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'Error getting events by category UnU' })
+    }
   }
 }
