@@ -10,11 +10,12 @@ router.get('/porCategoria/:idCategoria', eventController.getEventsByCategory)
 
 // router.post('/', eventController.postOne)
 
-router.post('/registrar-evento', validateCreateEvent, eventController.registerEvent)
+router.post('/registrar-evento', eventController.registerEvent)
 router.post('/reservar', eventController.registerAttendee)
 router.delete('/cancelar-reservacion/:idUsuario', eventController.unregisterAttendee)
 
 router.put('/aprobar/:idEvento', eventController.aproveEvent)
+router.put('/rechazar/:idEvento', eventController.rejectEvent)
 router.put('/:idEvento', eventController.updateOne)
 
 router.delete('/:idEvento', eventController.deleteOne)
