@@ -36,8 +36,14 @@ export const userController = {
   },
   updateOne: async (req, res) => {
     try {
-      console.log(req.body)
-      const resp = await User.updateOne(req.params.id, req.body)
+      console.log(req.body, '😉')
+      const data = {
+        nombre: req.body.nombre,
+        email: req.body.email,
+        celular: req.body.celular
+      }
+      console.log(data, 'DATA', req.params.id, 'ID')
+      const resp = await User.updateOne(req.params.id, data)
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
