@@ -2,10 +2,18 @@ import { knex } from '../db'
 
 export const User = {
   getAll: () => {
-    return knex.select().table('usuarios').where('esta_activo', 1)
+    return knex
+      .select()
+      .table('usuarios')
+      .where('typeUser', 'admin')
+      .where('esta_activo', 1)
   },
   getOnebyId: (id) => {
-    return knex.select().table('usuarios').where('id_usuario', id).where('esta_activo', 1)
+    return knex
+      .select()
+      .table('usuarios')
+      .where('id_usuario', id)
+      .where('esta_activo', 1)
   },
   postOne: (data) => {
     return knex('usuarios').insert(data)
@@ -14,7 +22,7 @@ export const User = {
     return knex('usuarios').where('id_usuario', id).update(data)
   },
   deleteOne: (id) => { // data = {}
-    return knex('usuarios').where('id_usuario', id).update({ esta_activo: false })
+    return knex('usuarios').where('id_usuario', id).delete()
   },
   findByEmail: (email) => {
     return knex.select()

@@ -26,8 +26,8 @@ export const userController = {
   },
   postOneAdmin: async (req, res) => {
     try {
-      console.log(req.body)
-      const resp = await User.postOne(req.body)
+      const { id, ...newAdmin } = req.body
+      const resp = await User.postOne(newAdmin)
       res.status(201).json(resp[0])
     } catch (error) {
       console.log(error)
