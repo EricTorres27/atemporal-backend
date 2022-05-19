@@ -9,6 +9,7 @@ export const eventController = {
       const { esta_activo } = req.query
       const events = await Event.getAll({ esta_activo: parseInt(esta_activo) })
       res.status(200).json(events)
+      console.log(events)
     } catch (error) {
       console.log(error)
       res.status(500).json({ msg: 'error getting all events' })

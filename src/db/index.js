@@ -9,7 +9,8 @@ export const knex = require('knex')({
     port: globalConfig.DATABASE.port,
     user: globalConfig.DATABASE.user,
     password: globalConfig.DATABASE.password,
-    database: globalConfig.DATABASE.database
+    database: globalConfig.DATABASE.database,
+    dateStrings: true
   },
   ssl: {
     require: true,
