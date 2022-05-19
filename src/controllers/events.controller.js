@@ -138,5 +138,14 @@ export const eventController = {
       console.log(error)
       res.status(500).json({ msg: 'Error getting events by category UnU' })
     }
+  },
+  getEventsByTextSearch: async (req, res) => {
+    try {
+      const events = await Event.getEventsByTextSearch(req.params.texto)
+      res.status(200).json(events)
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'Error getting events by category UnU' })
+    }
   }
 }
