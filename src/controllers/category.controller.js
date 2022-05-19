@@ -29,7 +29,7 @@ export const categoryController = {
 
   postOne: async (req, res) => {
     try {
-      const resp = await Category.postOne(req.body)
+      const resp = await Category.postOne({ nombre: req.body.nombre })
       res.status(201).json(resp[0])
     } catch (error) {
       console.log(error)
@@ -39,7 +39,7 @@ export const categoryController = {
 
   updateOne: async (req, res) => {
     try {
-      const resp = await Category.updateOne(req.params.id, req.body)
+      const resp = await Category.updateOne(req.params.id, { nombre: req.body.nombre })
       if (resp) {
         res.status(202).json({ rows_affected: resp })
       } else {

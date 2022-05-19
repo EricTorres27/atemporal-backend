@@ -8,9 +8,17 @@ export const User = {
       .where('typeUser', 'admin')
       .where('esta_activo', 1)
   },
-  getOnebyId: (id) => {
+  getOneById: (id) => {
     return knex
       .select()
+      .table('usuarios')
+      .where('id_usuario', id)
+      .where('esta_activo', 1)
+  },
+  getOne: (id) => {
+    console.log('HEY 😅')
+    return knex
+      .select('nombre', 'email', 'celular')
       .table('usuarios')
       .where('id_usuario', id)
       .where('esta_activo', 1)
