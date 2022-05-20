@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { eventController } from '../controllers/events.controller'
-import { validateCreateEvent } from '../middlewares/event.middlewares'
+// import { validateCreateEvent } from '../middlewares/event.middlewares'
 
 const router = Router()
 

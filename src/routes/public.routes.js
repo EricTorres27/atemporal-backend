@@ -7,15 +7,21 @@ import { userMiddleware } from '../middlewares/user.middlewares'
 
 const router = Router()
 
-router.get('/', (req, res) => res.json({ msg: 'Server is running 🐱‍🏍' }))
+router.get('/', (_, res) => res.json({ msg: 'Server is running 🐱‍🏍' }))
 router.get('/eventos', eventController.getAll)
-router.get('/eventos/:id', eventController.getOne)
+router.get('/eventos/:idEvento', eventController.getOne)
 router.post('/register',
-  userMiddleware.validateCreateAccount, authController.registerAccount)
+  userMiddleware.validateCreateAccount,
+  authController.registerAccount
+)
 router.post('/login',
-  userMiddleware.validateLogin, authController.loginUser)
+  userMiddleware.validateLogin,
+  authController.loginUser
+)
 router.post('/recuperar-password',
-  userMiddleware.validateEmail, authController.recoverPassword)
+  userMiddleware.validateEmail,
+  authController.recoverPassword
+)
 router.put('/cambiar-password',
   userMiddleware.validatePassword,
   authMiddleware.verifyTokenRecoverPassword,
