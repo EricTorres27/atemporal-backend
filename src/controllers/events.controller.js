@@ -5,6 +5,18 @@ import { Category } from '../models/Category'
 import { cloudinaryUpload } from '../utils/cloudinary.js'
 
 export const eventController = {
+  getAllPublic: async (req, res) => {
+    try {
+      const events = await Event.getAll({
+        esta_activo: 1,
+        esta_aprobado: 1
+      })
+      res.status(200).json(events)
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'error getting all events' })
+    }
+  },
   getAll: async (req, res) => {
     try {
       const { esta_activo, esta_aprobado } = req.query
