@@ -1,12 +1,13 @@
 import { knex } from '../db'
 
 const Event = {
-  getAll: ({ esta_activo }) => {
+  getAll: ({ esta_activo, esta_aprobado }) => {
     console.log(esta_activo, '🐱‍🏍')
-    return knex.select().table('eventos').where({ esta_activo })
+    console.log(esta_aprobado, '✅❓')
+    return knex.select().table('eventos').where({ esta_activo }).where({ esta_aprobado })
   },
   getOne: (id) => {
-    return knex.select().table('eventos').where('id_evento', id).where('esta_activo', 1)
+    return knex.select().table('eventos').where('id_evento', id).where('esta_activo', 1).where('esta_aprobado', 1)
   },
   postOne: (data) => {
     return knex('eventos').insert(data)
@@ -29,12 +30,17 @@ const Event = {
   getEventsByCategory: (id) => {
     console.log(id)
     return knex.select().from('eventos').innerJoin('eventos_categorias', 'eventos.id_evento', 'eventos_categorias.id_evento').where('eventos_categorias.id_categoria', id)
-    /* SELECT * FROM eventos e INNER JOIN eventos_categorias ec ON e.id_evento = ec.id_evento  WHERE ec.id_categoria = 4; */
   },
   getEventsByTextSearch: (textToFind) => {
     // console.log(textToFind)
     return knex.select().from('eventos').where('nombre_evento', 'like', `%${textToFind}%`).orWhere('nombre_organizador', 'like', `%${textToFind}%`)
     /* SELECT * FROM eventos e INNER JOIN eventos_categorias ec ON e.id_evento = ec.id_evento  WHERE ec.id_categoria = 4; */
+  },
+  getAllByCiudad: (name) => {
+    return knex.select().table('eventos').where('ciudad', name).where('esta_activo', 1).where('esta_aprobado', 1)
+  },
+  getAllByEstado: (name) => {
+    return knex.select().table('eventos').where('estado', name).where('esta_activo', 1).where('esta_aprobado', 1)
   }
 }
 

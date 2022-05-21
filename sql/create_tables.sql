@@ -47,6 +47,8 @@ CREATE TABLE eventos (
     hora_final varchar(255) NOT NULL,
     fecha_evento date NOT NULL,
     lugar varchar(255) NOT NULL,
+    ciudad varchar(255) NOT NULL,
+    estado varchar(255) NOT NULL,
     ubicacion_maps varchar(255) NOT NULL,
     foto_evento varchar(255) NOT NULL,
     direccion varchar(1000) NOT NULL,
@@ -54,6 +56,7 @@ CREATE TABLE eventos (
     itinerario_evento varchar(255) NOT NULL,
     tipo_cobro boolean NOT NULL,
     esta_activo boolean NOT NULL DEFAULT 0,
+    esta_aprobado boolean NOT NULL DEFAULT 0,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
