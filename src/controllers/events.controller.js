@@ -99,11 +99,11 @@ export const eventController = {
   },
   registerEvent: async (req, res) => {
     try {
-      console.log(req.body.data)
       const { event } = req.body
       const { id } = req.body
       const { categorias } = req.body
 
+      console.log(event, 'ANTES CL')
       event.foto_evento = await cloudinaryUpload(event.foto_evento)
 
       const [idEventCreated] = await Event.postOne(event)

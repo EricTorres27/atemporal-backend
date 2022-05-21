@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import { knex } from '../db'
 
 const Event = {
