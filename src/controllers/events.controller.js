@@ -7,8 +7,11 @@ import { cloudinaryUpload } from '../utils/cloudinary.js'
 export const eventController = {
   getAll: async (req, res) => {
     try {
-      const { esta_activo } = req.query
-      const events = await Event.getAll({ esta_activo: parseInt(esta_activo) })
+      const { esta_activo, esta_aprobado } = req.query
+      const events = await Event.getAll({
+        esta_activo: parseInt(esta_activo),
+        esta_aprobado: parseInt(esta_aprobado)
+      })
       res.status(200).json(events)
     } catch (error) {
       console.log(error)
@@ -72,7 +75,7 @@ export const eventController = {
   },
   aproveEvent: async (req, res) => {
     try {
-      const resp = await Event.updateOne(req.params.idEvento, { esta_activo: 1 })
+      const resp = await Event.updateOne(req.params.idEvento, { esta_aprobado: 1 })
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
@@ -81,7 +84,7 @@ export const eventController = {
   },
   rejectEvent: async (req, res) => {
     try {
-      const resp = await Event.updateOne(req.params.idEvento, { esta_activo: 0 })
+      const resp = await Event.updateOne(req.params.idEvento, { esta_aprobado: 0 })
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
@@ -147,6 +150,32 @@ export const eventController = {
     } catch (error) {
       console.log(error)
       res.status(500).json({ msg: 'Error al conseguir evento por categoria' })
+    }
+  },
+  getAllByCiudad: async (req, res) => {
+    try {
+      const event = await Event.getAllByCiudad(req.params.name)
+      if (event[0]) {
+        res.json(event[0])
+      } else {
+        res.status(400).json({ msg: 'Evento en la ciudad no existe' })
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'Error al conseguir evento por ciudad' })
+    }
+  },
+  getAllByEstado: async (req, res) => {
+    try {
+      const event = await Event.getAllByEstado(req.params.name)
+      if (event[0]) {
+        res.json(event[0])
+      } else {
+        res.status(400).json({ msg: 'Evento en la estado no existe' })
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'Error al conseguir evento por estado' })
     }
   }
 }
