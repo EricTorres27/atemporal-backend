@@ -11,9 +11,22 @@ export const userController = {
       res.status(500).json({ msg: 'Error al extraer los usuarios' })
     }
   },
+  getOneById: async (req, res) => {
+    try {
+      const user = await User.getOneById(req.params.id)
+      if (user[0]) {
+        res.json(user[0])
+      } else {
+        res.status(400).json({ msg: 'user does not exist' })
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'error getting user' })
+    }
+  },
   getOne: async (req, res) => {
     try {
-      const user = await User.getOnebyId(req.params.id)
+      const user = await User.getOne(req.params.id)
       if (user[0]) {
         res.json(user[0])
       } else {
@@ -26,8 +39,8 @@ export const userController = {
   },
   postOneAdmin: async (req, res) => {
     try {
-      console.log(req.body)
-      const resp = await User.postOne(req.body)
+      const { id, ...newAdmin } = req.body
+      const resp = await User.postOne(newAdmin)
       res.status(201).json(resp[0])
     } catch (error) {
       console.log(error)
@@ -36,12 +49,18 @@ export const userController = {
   },
   updateOne: async (req, res) => {
     try {
-      console.log(req.body)
-      const resp = await User.updateOne(req.params.id, req.body)
+      console.log(req.body, '😉')
+      const data = {
+        nombre: req.body.nombre,
+        email: req.body.email,
+        celular: req.body.celular
+      }
+      console.log(data, 'DATA', req.params.id, 'ID')
+      const resp = await User.updateOne(req.params.id, data)
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
-      res.json({ msg: 'error' })
+      res.json({ msg: 'error al actualizar el usuario' })
     }
   },
   deleteOne: async (req, res) => {
@@ -56,7 +75,7 @@ export const userController = {
   whoIam: async (req, res) => {
     try {
       console.log(req.body.id)
-      const [user] = await User.getOnebyId(req.body.id)
+      const [user] = await User.getOneById(req.body.id)
       res.status(200).json(user)
     } catch (error) {
       res.status(500).json({ msg: 'Error al consultar el usuario' })

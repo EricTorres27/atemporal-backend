@@ -1,20 +1,20 @@
 use atemporal;
 
 /* CREATE ADMIN USER */
-
-INSERT INTO usuarios(nombre, celular,email,`password`,typeUser)
+/* FOR BCRYPT HASH  https://bcrypt-generator.com/ */
+INSERT INTO usuarios(nombre, celular, email,`password`,typeUser)
 VALUES  (
     "Daniel Cu",
     "4424747493",
     "danielcu@alternet.com.mx",
-    "password",
+    "$2a$12$JjaHoebtVa/fi7ELrPM5jeff3ZYvMq8VQfQS6b1CJhH2SyekrHW82", 
     "admin"
 ),(
     "Jesus 😶‍🌫️",
     "2441196804",
     "mj.jesusj@gmail.com",
-    "hola123",
-    "admin"
+    "$2a$12$ms36vw1pP.7dpn82ZuArA.dMI7dtuAUeDBeKj5aL6q0/0Y8QOQU2e",
+    "admin" 
 );
 /* INSERTS PARA EVENTOS */
 

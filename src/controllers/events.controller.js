@@ -9,6 +9,7 @@ export const eventController = {
       const { esta_activo } = req.query
       const events = await Event.getAll({ esta_activo: parseInt(esta_activo) })
       res.status(200).json(events)
+      console.log(events)
     } catch (error) {
       console.log(error)
       res.status(500).json({ msg: 'error getting all events' })
@@ -78,6 +79,15 @@ export const eventController = {
       return res.status(500).json({ msg: 'error' })
     }
   },
+  rejectEvent: async (req, res) => {
+    try {
+      const resp = await Event.updateOne(req.params.idEvento, { esta_activo: 0 })
+      res.json({ rows_affected: resp })
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ msg: 'error' })
+    }
+  },
   deleteOne: async (req, res) => {
     try {
       const resp = await Event.deleteOne(req.params.idEvento)
@@ -89,12 +99,13 @@ export const eventController = {
   },
   registerEvent: async (req, res) => {
     try {
+      console.log(req.body)
       const { event } = req.body
-      const { idUsuario } = req.body
+      const { id } = req.body
       const { categorias } = req.body
 
       const [idEventCreated] = await Event.postOne(event)
-      await Event.registerEventCreation(idUsuario.id_usuario, idEventCreated)
+      await Event.registerEventCreation(id, idEventCreated)
 
       for (let i = 0; i < categorias.length; i++) {
         await Category.postEventCategory(categorias[i].id, idEventCreated)
@@ -122,6 +133,15 @@ export const eventController = {
   getEventsByCategory: async (req, res) => {
     try {
       const events = await Event.getEventsByCategory(req.params.idCategoria)
+      res.status(200).json(events)
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'Error getting events by category UnU' })
+    }
+  },
+  getEventsByTextSearch: async (req, res) => {
+    try {
+      const events = await Event.getEventsByTextSearch(req.params.texto)
       res.status(200).json(events)
     } catch (error) {
       console.log(error)

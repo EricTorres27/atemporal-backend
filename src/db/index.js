@@ -9,14 +9,15 @@ export const knex = require('knex')({
     port: globalConfig.DATABASE.port,
     user: globalConfig.DATABASE.user,
     password: globalConfig.DATABASE.password,
-    database: globalConfig.DATABASE.database
+    database: globalConfig.DATABASE.database,
+    dateStrings: true
   },
   ssl: {
     require: true,
     rejectUnauthorized: false,
     ca: fs.readFileSync(path.join(__dirname, '/ca-certificate.crt'))
   },
-  debug: true,
+  debug: false,
   pool: {
     min: 0,
     max: 7

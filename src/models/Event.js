@@ -31,6 +31,11 @@ const Event = {
     console.log(id)
     return knex.select().from('eventos').innerJoin('eventos_categorias', 'eventos.id_evento', 'eventos_categorias.id_evento').where('eventos_categorias.id_categoria', id)
     /* SELECT * FROM eventos e INNER JOIN eventos_categorias ec ON e.id_evento = ec.id_evento  WHERE ec.id_categoria = 4; */
+  },
+  getEventsByTextSearch: (textToFind) => {
+    // console.log(textToFind)
+    return knex.select().from('eventos').where('nombre_evento', 'like', `%${textToFind}%`).orWhere('nombre_organizador', 'like', `%${textToFind}%`)
+    /* SELECT * FROM eventos e INNER JOIN eventos_categorias ec ON e.id_evento = ec.id_evento  WHERE ec.id_categoria = 4; */
   }
 }
 
