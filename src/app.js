@@ -12,12 +12,11 @@ app.disable('etag')
 
 // Middlewares
 app.use(cors()) // Una configuracion de seguridad entre headers
-app.use(express.json()) // Parsea lo que llega al servidor en formato json
 app.use(morgan('dev')) // Muestra en consola la url, tiempo y status solicitado
 
 // Image Upload
-app.use(express.json({ limit: '50mb' }))
-app.use(express.urlencoded({ limit: '50mb', extended: true }))
+app.use(express.json({ limit: '10Mb' }))
+app.use(express.urlencoded({ limit: '10Mb', extended: true }))
 
 app.post('/api/upload', async (req, res) => {
   try {
