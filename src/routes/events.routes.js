@@ -8,6 +8,9 @@ router.get('/', eventController.getAll)
 router.get('/:idEvento', eventController.getOne)
 router.get('/porCategoria/:idCategoria', eventController.getEventsByCategory)
 router.get('/porTexto/:texto', eventController.getEventsByTextSearch)
+//
+router.get('/porEstado/:name', eventController.getAllByEstado)
+router.get('/porCiudad/:name', eventController.getAllByCiudad)
 
 // router.post('/', eventController.postOne)
 
