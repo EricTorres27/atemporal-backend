@@ -2,6 +2,7 @@
 import { Event } from '../models/Event'
 import { Ticket } from '../models/Ticket'
 import { Category } from '../models/Category'
+import { cloudinaryUpload } from '../utils/cloudinary.js'
 
 export const eventController = {
   getAll: async (req, res) => {
@@ -98,10 +99,12 @@ export const eventController = {
   },
   registerEvent: async (req, res) => {
     try {
-      console.log(req.body)
+      console.log(req.body.data)
       const { event } = req.body
       const { id } = req.body
       const { categorias } = req.body
+
+      event.foto_evento = await cloudinaryUpload(event.foto_evento)
 
       const [idEventCreated] = await Event.postOne(event)
       await Event.registerEventCreation(id, idEventCreated)
@@ -111,7 +114,7 @@ export const eventController = {
       }
 
       if (event.tipo_cobro === false) {
-        res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated })
+        res.status(201).json({ msg: 'Event creado exitosamente con id: ' + idEventCreated })
       } else {
         const { ticket } = req.body
 
@@ -120,13 +123,12 @@ export const eventController = {
           await Ticket.postOneRelation(idEventCreated, idTicketCreated)
         }
 
-        res.status(201).json({ msg: 'Event created successfully with id: ' + idEventCreated + ' and also its tickets' })
+        res.status(201).json({ msg: 'Event creado exitosamente con el id: ' + idEventCreated + ' junto a sus tickets' })
 
         // esto deberia estar aqui
       }
     } catch (error) {
-      console.error(error)
-      res.status(500).json({ msg: 'error registering event' })
+      res.status(500).json({ msg: 'Error al registrar evento' })
     }
   },
   getEventsByCategory: async (req, res) => {
@@ -135,7 +137,7 @@ export const eventController = {
       res.status(200).json(events)
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'Error getting events by category UnU' })
+      res.status(500).json({ msg: 'Error al conseguir eventos por categoria' })
     }
   },
   getEventsByTextSearch: async (req, res) => {
@@ -144,7 +146,7 @@ export const eventController = {
       res.status(200).json(events)
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'Error getting events by category UnU' })
+      res.status(500).json({ msg: 'Error al conseguir evento por categoria' })
     }
   }
 }

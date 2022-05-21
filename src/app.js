@@ -27,7 +27,7 @@ app.post('/api/upload', async (req, res) => {
       upload_preset: 'dev_setups'
     })
 
-    console.log(uploadedResponse)
+    console.log(uploadedResponse.url)
     // uploadedResponse.url -> usar para insercón de imagenes
     res.json({ msg: 'SUCCESS' })
   } catch (error) {
