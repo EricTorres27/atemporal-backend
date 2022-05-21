@@ -13,7 +13,6 @@ export const authMiddleware = {
       }
 
       const token = authorization.split(' ')[1]
-      console.log(token, '😀')
 
       const decodedToken = authUtil.verifyToken(token)
 
