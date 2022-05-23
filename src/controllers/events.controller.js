@@ -43,6 +43,19 @@ export const eventController = {
       res.status(500).json({ msg: 'error getting event' })
     }
   },
+  getOnePublic: async (req, res) => {
+    try {
+      const event = await Event.getOnePublic(req.params.idEvento)
+      if (event[0]) {
+        res.json(event[0])
+      } else {
+        res.status(400).json({ msg: 'event does not exist' })
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'error getting event' })
+    }
+  },
   postOne: async (req, res) => {
     try {
       console.log(req.body.event)
@@ -87,7 +100,7 @@ export const eventController = {
   },
   aproveEvent: async (req, res) => {
     try {
-      const resp = await Event.updateOne(req.params.idEvento, { esta_aprobado: 1 })
+      const resp = await Event.updateOne(req.params.idEvento, { esta_aprobado: 1, esta_activo: 1 })
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)
@@ -96,7 +109,7 @@ export const eventController = {
   },
   rejectEvent: async (req, res) => {
     try {
-      const resp = await Event.updateOne(req.params.idEvento, { esta_aprobado: 0 })
+      const resp = await Event.updateOne(req.params.idEvento, { esta_aprobado: 0, esta_activo: 1 })
       res.json({ rows_affected: resp })
     } catch (error) {
       console.log(error)

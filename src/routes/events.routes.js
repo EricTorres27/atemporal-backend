@@ -6,6 +6,7 @@ const router = Router()
 
 router.get('/', eventController.getAll)
 router.get('/:idEvento', eventController.getOne)
+// router.get('/id/:idEvento', eventController.getOne)
 router.get('/porCategoria/:idCategoria', eventController.getEventsByCategory)
 router.get('/porTexto/:texto', eventController.getEventsByTextSearch)
 //

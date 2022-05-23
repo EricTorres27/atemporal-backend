@@ -7,7 +7,10 @@ const Event = {
     return knex.select().table('eventos').where({ esta_activo }).where({ esta_aprobado })
   },
   getOne: (id) => {
-    return knex.select().table('eventos').where('id_evento', id).where('esta_activo', 1).where('esta_aprobado', 1)
+    return knex.select().table('eventos').where('id_evento', id)
+  },
+  getOnePublic: (id) => {
+    return knex.select().table('eventos').where('id_evento', id).where('esta_aprobado', 1).where('esta_activo', 1)
   },
   postOne: (data) => {
     return knex('eventos').insert(data)
@@ -25,15 +28,15 @@ const Event = {
     return knex('eventos').where('id_evento', id).update(data)
   },
   deleteOne: (id) => { // data = {}
-    return knex('eventos').where('id_evento', id).update({ esta_activo: false })
+    return knex('eventos').where('id_evento', id).update({ esta_activo: false, esta_aprobado: false })
   },
   getEventsByCategory: (id) => {
     console.log(id)
-    return knex.select().from('eventos').innerJoin('eventos_categorias', 'eventos.id_evento', 'eventos_categorias.id_evento').where('eventos_categorias.id_categoria', id)
+    return knex.select().from('eventos').where('eventos.esta_activo', 1).where('eventos.esta_aprobado', 1).innerJoin('eventos_categorias', 'eventos.id_evento', 'eventos_categorias.id_evento').where('eventos_categorias.id_categoria', id)
   },
   getEventsByTextSearch: (textToFind) => {
     // console.log(textToFind)
-    return knex.select().from('eventos').where('nombre_evento', 'like', `%${textToFind}%`).orWhere('nombre_organizador', 'like', `%${textToFind}%`)
+    return knex.select().from('eventos').andWhere('esta_activo', 1).andWhere('esta_aprobado', 1).where('nombre_evento', 'like', `%${textToFind}%`).orWhere('nombre_organizador', 'like', `%${textToFind}%`).andWhere('esta_activo', 1).andWhere('esta_aprobado', 1)
     /* SELECT * FROM eventos e INNER JOIN eventos_categorias ec ON e.id_evento = ec.id_evento  WHERE ec.id_categoria = 4; */
   },
   getAllByCiudad: (name) => {
