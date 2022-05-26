@@ -27,7 +27,7 @@ export const eventController = {
       res.status(200).json(events)
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'error getting all events' })
+      res.status(500).json({ msg: 'Error al consultar eventos' })
     }
   },
   getOne: async (req, res) => {
@@ -36,11 +36,11 @@ export const eventController = {
       if (event[0]) {
         res.json(event[0])
       } else {
-        res.status(400).json({ msg: 'event does not exist' })
+        res.status(400).json({ msg: 'El evento no existe' })
       }
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'error getting event' })
+      res.status(500).json({ msg: 'Error al consultar evento' })
     }
   },
   getOnePublic: async (req, res) => {
@@ -53,7 +53,7 @@ export const eventController = {
       }
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'error getting event' })
+      res.status(500).json({ msg: 'Error al consultar evento' })
     }
   },
   postOne: async (req, res) => {

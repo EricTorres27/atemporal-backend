@@ -1,4 +1,5 @@
 import globalConfig from '../config'
+import { User } from '../models/User'
 
 const jwt = require('jsonwebtoken')
 

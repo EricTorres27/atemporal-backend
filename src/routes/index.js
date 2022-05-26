@@ -8,7 +8,7 @@ import { authMiddleware } from '../middlewares/auth.middleware'
 
 export const initRoutes = (app) => {
   app.use('/', publicRouter)
-  app.use(authMiddleware.verifyToken)
+  app.use(authMiddleware.verifyTokenActive)
   app.use('/api/usuarios', userRouter)
   app.use('/api/eventos', eventRouter)
   app.use('/api/boletos', ticketRouter)
