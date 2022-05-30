@@ -12,6 +12,8 @@ DROP TABLE IF EXISTS eventos;
 DROP TABLE IF EXISTS boletos;
 DROP TABLE IF EXISTS categorias;
 DROP TABLE IF EXISTS metodos_pago;
+DROP TABLE IF EXISTS estados;
+DROP TABLE IF EXISTS eventos_estados;
 DROP DATABASE IF EXISTS atemporal;
 
 

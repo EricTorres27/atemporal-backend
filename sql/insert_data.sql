@@ -28,7 +28,6 @@ INSERT INTO `eventos` (
   `hora_final`,
   `lugar`,
   `ciudad`,
-  `estado`,
   `ubicacion_maps`,
   `descripcion`,
   `direccion`,
@@ -51,7 +50,6 @@ VALUES (
   '14:00 PM',
   'En mi casa',
   'Naucalpan',
-  'Ciudad de México',
   'https://www.google.com.mx/maps/place/Tecnol%C3%B3gico+de+Monterrey/@20.6133104,-100.4094899,17z/data=!3m1!4b1!4m5!3m4!1s0x85d35ae83751a45d:0x4fa6ee69f6b64f3a!8m2!3d20.6133105!4d-100.4052627',
   'Un torneo para ver quien termina de comer primero x numero de mariscos.',
   'Epigmenio González 500, San Pablo, 76130 Santiago de Querétaro, Qro.',
@@ -74,7 +72,6 @@ VALUES (
   '14:00 PM',
   'Tec Campus FIFA',
   'Nezahuatcoyotl',
-  'Ciudad de México',
   'https://www.google.com.mx/maps/place/Tecnol%C3%B3gico+de+Monterrey/@20.6133104,-100.4094899,17z/data=!3m1!4b1!4m5!3m4!1s0x85d35ae83751a45d:0x4fa6ee69f6b64f3a!8m2!3d20.6133105!4d-100.4052627',
   'Un torneo para ver quien se convierte en un FIFA primero.',
   'Epigmenio González 500, San Pablo, 76130 Santiago de Querétaro, Qro.',
@@ -97,7 +94,6 @@ VALUES (
   '14:00 PM',
   'Fiesta Lol - Ubi',
   'Monterrey',
-  'Nuevo León',
   'https://www.google.com.mx/maps/place/Tecnol%C3%B3gico+de+Monterrey/@20.6133104,-100.4094899,17z/data=!3m1!4b1!4m5!3m4!1s0x85d35ae83751a45d:0x4fa6ee69f6b64f3a!8m2!3d20.6133105!4d-100.4052627',
   'FIESTAAAAAAAAA.',
   'Epigmenio González 500, San Pablo, 76130 Santiago de Querétaro, Qro.',
@@ -120,7 +116,6 @@ VALUES (
   '14:00 PM',
   'Minecraft Realms',
   'Pinal de Amoles',
-  'Querétaro',
   'https://www.google.com.mx/maps/place/Tecnol%C3%B3gico+de+Monterrey/@20.6133104,-100.4094899,17z/data=!3m1!4b1!4m5!3m4!1s0x85d35ae83751a45d:0x4fa6ee69f6b64f3a!8m2!3d20.6133105!4d-100.4052627',
   'PVP del Maincra',
   'Epigmenio González 500, San Pablo, 76130 Santiago de Querétaro, Qro.',
@@ -143,7 +138,6 @@ VALUES (
   '14:00 PM',
   'Torneo del LOL',
   'Pinal de Amoles',
-  'Querétaro',
   'https://www.google.com.mx/maps/place/Tecnol%C3%B3gico+de+Monterrey/@20.6133104,-100.4094899,17z/data=!3m1!4b1!4m5!3m4!1s0x85d35ae83751a45d:0x4fa6ee69f6b64f3a!8m2!3d20.6133105!4d-100.4052627',
   'Juega en la grieta del invocador',
   'Epigmenio González 300, Atlixco, 76543, Atlixco, Pue.',
@@ -165,7 +159,6 @@ VALUES (
   '8:00 AM',
   '14:00 PM',
   'Tec Campus Qro',
-  'Querétaro',
   'Querétaro',
   'https://www.google.com.mx/maps/place/Tecnol%C3%B3gico+de+Monterrey/@20.6133104,-100.4094899,17z/data=!3m1!4b1!4m5!3m4!1s0x85d35ae83751a45d:0x4fa6ee69f6b64f3a!8m2!3d20.6133105!4d-100.4052627',
   'ª XDDD',
@@ -208,7 +201,51 @@ VALUES
 ('Transferencia'),
 ('Paypal');
 
+INSERT INTO `estados`(`nombre`) 
+VALUES
+('Aguascalientes'),
+('Baja California'),
+('Baja California Sur'), 
+('Campeche'), 
+('Chiapas'), 
+('Chihuahua'), 
+('Ciudad de México'), 
+('Coahuila'), 
+('Colima'), 
+('Durango'), 
+('Estado de México'), 
+('Guanajuato'), 
+('Guerrero'), 
+('Hidalgo'), 
+('Jalisco'), 
+('Michoacán'), 
+('Morelos'), 
+('Nayarit'), 
+('Nuevo León'), 
+('Oaxaca'), 
+('Puebla'), 
+('Querétaro'), 
+('Quintana Roo'), 
+('San Luis Potosí'), 
+('Sinaloa'), 
+('Sonora'), 
+('Tabasco'), 
+('Tamaulipas'), 
+('Tlaxcala'), 
+('Veracruz'), 
+('Yucatán'), 
+('Zacatecas');
+
+
 /* INSERTS CATEGORIA_EVENTOS */
+INSERT INTO `eventos_estados` ( `id_evento`, `id_estado`) 
+VALUES 
+('1', '22'),
+('2', '22'), 
+('3', '22'), 
+('4', '22'), 
+('5', '22'), 
+('6', '21');
 
 INSERT INTO `eventos_categorias` ( `id_categoria`, `id_evento`) 
 VALUES 

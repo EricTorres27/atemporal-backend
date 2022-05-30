@@ -48,7 +48,6 @@ CREATE TABLE eventos (
     fecha_evento date NOT NULL,
     lugar varchar(255) NOT NULL,
     ciudad varchar(255) NOT NULL,
-    estado varchar(255) NOT NULL,
     ubicacion_maps varchar(255) NOT NULL,
     foto_evento varchar(255) NOT NULL,
     direccion varchar(1000) NOT NULL,
@@ -79,6 +78,21 @@ CREATE TABLE boletos (
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE estados (
+    id_estado int NOT NULL,
+    nombre varchar(255) NOT NULL,
+    fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE eventos_estados (
+    id int NOT NULL,
+    id_evento int NOT NULL,
+    id_estado int NOT NULL,
+    fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
 CREATE TABLE metodos_pago (
     id_metodo int NOT NULL,
     nombre varchar(255) NOT NULL,
@@ -86,6 +100,8 @@ CREATE TABLE metodos_pago (
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+
 
 CREATE TABLE roles_permisos (
     id_rol int NOT NULL,
@@ -177,6 +193,11 @@ ALTER TABLE eventos
 ADD CONSTRAINT pk_eventos PRIMARY KEY (id_evento),
 CHANGE id_evento id_evento int NOT NULL AUTO_INCREMENT;
 
+ALTER TABLE estados
+ADD CONSTRAINT pk_estados PRIMARY KEY (id_estado),
+CHANGE id_estado id_estado int NOT NULL AUTO_INCREMENT;
+
+
 /*TABLAS CON LLAVES FORANEAS*/
 
 ALTER TABLE usuarios
@@ -220,6 +241,12 @@ CHANGE id id int NOT NULL AUTO_INCREMENT,
 ADD CONSTRAINT fk_metodos FOREIGN KEY (id_metodo) REFERENCES metodos_pago(id_metodo),
 ADD CONSTRAINT fk_eventos_metodos FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
 
+ALTER TABLE eventos_estados
+ADD CONSTRAINT pk_ee PRIMARY KEY (id, id_evento, id_estado),
+CHANGE id id int NOT NULL AUTO_INCREMENT,
+ADD CONSTRAINT fk_estados FOREIGN KEY (id_estado) REFERENCES estados(id_estado),
+ADD CONSTRAINT fk_eventos_estados FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
+
 /* AUTOINCREMENTS*/
 
 ALTER TABLE usuarios_eventos_crean MODIFY COLUMN id INT AUTO_INCREMENT;
@@ -227,5 +254,6 @@ ALTER TABLE usuarios_eventos_reservan MODIFY COLUMN id INT AUTO_INCREMENT;
 ALTER TABLE eventos_categorias MODIFY COLUMN id INT AUTO_INCREMENT;
 ALTER TABLE eventos_boletos MODIFY COLUMN id INT AUTO_INCREMENT;
 ALTER TABLE eventos_metodos MODIFY COLUMN id INT AUTO_INCREMENT;
+ALTER TABLE eventos_estados MODIFY COLUMN id INT AUTO_INCREMENT;
 
 
