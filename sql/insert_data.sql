@@ -233,7 +233,53 @@ VALUES
     ('Transferencia'),
     ('Paypal');
 
+INSERT INTO
+    `estados`(`nombre`)
+VALUES
+    ('Aguascalientes'),
+    ('Baja California'),
+    ('Baja California Sur'),
+    ('Campeche'),
+    ('Chiapas'),
+    ('Chihuahua'),
+    ('Ciudad de México'),
+    ('Coahuila'),
+    ('Colima'),
+    ('Durango'),
+    ('Estado de México'),
+    ('Guanajuato'),
+    ('Guerrero'),
+    ('Hidalgo'),
+    ('Jalisco'),
+    ('Michoacán'),
+    ('Morelos'),
+    ('Nayarit'),
+    ('Nuevo León'),
+    ('Oaxaca'),
+    ('Puebla'),
+    ('Querétaro'),
+    ('Quintana Roo'),
+    ('San Luis Potosí'),
+    ('Sinaloa'),
+    ('Sonora'),
+    ('Tabasco'),
+    ('Tamaulipas'),
+    ('Tlaxcala'),
+    ('Veracruz'),
+    ('Yucatán'),
+    ('Zacatecas');
+
 /* INSERTS CATEGORIA_EVENTOS */
+
+INSERT INTO
+    `eventos_estados` (`id_evento`, `id_estado`)
+VALUES
+    ('1', '22'),
+    ('2', '22'),
+    ('3', '22'),
+    ('4', '22'),
+    ('5', '22'),
+    ('6', '21');
 
 INSERT INTO
     `eventos_categorias` (`id_categoria`, `id_evento`)
