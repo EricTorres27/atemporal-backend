@@ -156,6 +156,7 @@ export const eventController = {
         // esto deberia estar aqui
       }
     } catch (error) {
+      console.log(error)
       res.status(500).json({ msg: 'Error al registrar evento' })
     }
   },

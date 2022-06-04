@@ -4,7 +4,7 @@ import { authMiddleware } from '../middlewares/auth.middleware'
 import { validateCreatePaymentMeth } from '../middlewares/paymentMeth.middleware'
 
 const router = Router()
-router.get('/', authMiddleware.isAdmin, paymentMethController.getAll)
+router.get('/', paymentMethController.getAll)
 router.get('/:id', authMiddleware.isAdmin, paymentMethController.getOne)
 router.post('/',
   authMiddleware.isAdmin,

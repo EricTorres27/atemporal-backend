@@ -1,3 +1,5 @@
+SET SESSION sql_require_primary_key = 0;
+
 DROP DATABASE IF EXISTS atemporal;
 
 CREATE DATABASE atemporal;
@@ -153,79 +155,125 @@ CREATE TABLE eventos_boletos (
 
 /*AQUELLAS TABLAS SIN LLAVES FORANEAS*/
 
-ALTER TABLE roles
-ADD CONSTRAINT pk_roles PRIMARY KEY (id_rol),
-CHANGE id_rol id_rol int NOT NULL AUTO_INCREMENT;
+ALTER TABLE
+    roles
+ADD
+    CONSTRAINT pk_roles PRIMARY KEY (id_rol),
+    CHANGE id_rol id_rol int NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE permisos
-ADD CONSTRAINT pk_permisos PRIMARY KEY (id_permiso),
-CHANGE id_permiso id_permiso int NOT NULL AUTO_INCREMENT;
+ALTER TABLE
+    permisos
+ADD
+    CONSTRAINT pk_permisos PRIMARY KEY (id_permiso),
+    CHANGE id_permiso id_permiso int NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE categorias
-ADD CONSTRAINT pk_categorias PRIMARY KEY (id_categoria),
-CHANGE id_categoria id_categoria int NOT NULL AUTO_INCREMENT;
+ALTER TABLE
+    categorias
+ADD
+    CONSTRAINT pk_categorias PRIMARY KEY (id_categoria),
+    CHANGE id_categoria id_categoria int NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE boletos
-ADD CONSTRAINT pk_boletos PRIMARY KEY (id_boleto),
-CHANGE id_boleto id_boleto int NOT NULL AUTO_INCREMENT;
+ALTER TABLE
+    boletos
+ADD
+    CONSTRAINT pk_boletos PRIMARY KEY (id_boleto),
+    CHANGE id_boleto id_boleto int NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE metodos_pago
-ADD CONSTRAINT pk_metodos PRIMARY KEY (id_metodo),
-CHANGE id_metodo id_metodo int NOT NULL AUTO_INCREMENT;
+ALTER TABLE
+    metodos_pago
+ADD
+    CONSTRAINT pk_metodos PRIMARY KEY (id_metodo),
+    CHANGE id_metodo id_metodo int NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE eventos
-ADD CONSTRAINT pk_eventos PRIMARY KEY (id_evento),
-CHANGE id_evento id_evento int NOT NULL AUTO_INCREMENT;
+ALTER TABLE
+    eventos
+ADD
+    CONSTRAINT pk_eventos PRIMARY KEY (id_evento),
+    CHANGE id_evento id_evento int NOT NULL AUTO_INCREMENT;
 
 /*TABLAS CON LLAVES FORANEAS*/
 
-ALTER TABLE usuarios
-ADD CONSTRAINT pk_usuarios PRIMARY KEY (id_usuario),
-CHANGE id_usuario id_usuario int NOT NULL AUTO_INCREMENT;
+ALTER TABLE
+    usuarios
+ADD
+    CONSTRAINT pk_usuarios PRIMARY KEY (id_usuario),
+    CHANGE id_usuario id_usuario int NOT NULL AUTO_INCREMENT;
 
 /*TABLAS CON LLAVES PRIMARIAS COMPUESTAS */
 
-ALTER TABLE roles_permisos
-ADD CONSTRAINT pk_roles_permisos PRIMARY KEY (id_permiso,id_rol),
-ADD CONSTRAINT fk_permisos FOREIGN KEY (id_permiso) REFERENCES permisos(id_permiso),
-ADD CONSTRAINT fk_roles_permisos FOREIGN KEY (id_rol) REFERENCES roles(id_rol);
+ALTER TABLE
+    roles_permisos
+ADD
+    CONSTRAINT pk_roles_permisos PRIMARY KEY (id_permiso, id_rol),
+ADD
+    CONSTRAINT fk_permisos FOREIGN KEY (id_permiso) REFERENCES permisos(id_permiso),
+ADD
+    CONSTRAINT fk_roles_permisos FOREIGN KEY (id_rol) REFERENCES roles(id_rol);
 
-ALTER TABLE usuarios_eventos_crean
-ADD CONSTRAINT pk_uec PRIMARY KEY (id, id_usuario, id_evento),
-CHANGE id id int NOT NULL AUTO_INCREMENT,
-ADD CONSTRAINT fk_e_crean FOREIGN KEY (id_evento) REFERENCES eventos(id_evento),
-ADD CONSTRAINT fk_u_crean FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario);
+ALTER TABLE
+    usuarios_eventos_crean
+ADD
+    CONSTRAINT pk_uec PRIMARY KEY (id, id_usuario, id_evento),
+    CHANGE id id int NOT NULL AUTO_INCREMENT,
+ADD
+    CONSTRAINT fk_e_crean FOREIGN KEY (id_evento) REFERENCES eventos(id_evento),
+ADD
+    CONSTRAINT fk_u_crean FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario);
 
-ALTER TABLE usuarios_eventos_reservan
-ADD CONSTRAINT pk_uer PRIMARY KEY (id, id_usuario, id_evento),
-CHANGE id id int NOT NULL AUTO_INCREMENT,
-ADD CONSTRAINT fk_e_reservan FOREIGN KEY (id_evento) REFERENCES eventos(id_evento),
-ADD CONSTRAINT fk_u_reservan FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario);
+ALTER TABLE
+    usuarios_eventos_reservan
+ADD
+    CONSTRAINT pk_uer PRIMARY KEY (id, id_usuario, id_evento),
+    CHANGE id id int NOT NULL AUTO_INCREMENT,
+ADD
+    CONSTRAINT fk_e_reservan FOREIGN KEY (id_evento) REFERENCES eventos(id_evento),
+ADD
+    CONSTRAINT fk_u_reservan FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario);
 
-ALTER TABLE eventos_categorias
-ADD CONSTRAINT pk_ec PRIMARY KEY (id, id_categoria, id_evento),
-CHANGE id id int NOT NULL AUTO_INCREMENT,
-ADD CONSTRAINT fk_categorias FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
-ADD CONSTRAINT fk_eventos_categorias FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
+ALTER TABLE
+    eventos_categorias
+ADD
+    CONSTRAINT pk_ec PRIMARY KEY (id, id_categoria, id_evento),
+    CHANGE id id int NOT NULL AUTO_INCREMENT,
+ADD
+    CONSTRAINT fk_categorias FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria),
+ADD
+    CONSTRAINT fk_eventos_categorias FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
 
-ALTER TABLE eventos_boletos
-ADD CONSTRAINT pk_eb PRIMARY KEY (id, id_boleto, id_evento),
-CHANGE id id int NOT NULL AUTO_INCREMENT,
-ADD CONSTRAINT fk_boletos FOREIGN KEY (id_boleto) REFERENCES boletos(id_boleto),
-ADD CONSTRAINT fk_eventos_boletos FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
+ALTER TABLE
+    eventos_boletos
+ADD
+    CONSTRAINT pk_eb PRIMARY KEY (id, id_boleto, id_evento),
+    CHANGE id id int NOT NULL AUTO_INCREMENT,
+ADD
+    CONSTRAINT fk_boletos FOREIGN KEY (id_boleto) REFERENCES boletos(id_boleto),
+ADD
+    CONSTRAINT fk_eventos_boletos FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
 
-ALTER TABLE eventos_metodos
-ADD CONSTRAINT pk_em PRIMARY KEY (id, id_metodo, id_evento),
-CHANGE id id int NOT NULL AUTO_INCREMENT,
-ADD CONSTRAINT fk_metodos FOREIGN KEY (id_metodo) REFERENCES metodos_pago(id_metodo),
-ADD CONSTRAINT fk_eventos_metodos FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
+ALTER TABLE
+    eventos_metodos
+ADD
+    CONSTRAINT pk_em PRIMARY KEY (id, id_metodo, id_evento),
+    CHANGE id id int NOT NULL AUTO_INCREMENT,
+ADD
+    CONSTRAINT fk_metodos FOREIGN KEY (id_metodo) REFERENCES metodos_pago(id_metodo),
+ADD
+    CONSTRAINT fk_eventos_metodos FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
 
 /* AUTOINCREMENTS*/
 
-ALTER TABLE usuarios_eventos_crean MODIFY COLUMN id INT AUTO_INCREMENT;
-ALTER TABLE usuarios_eventos_reservan MODIFY COLUMN id INT AUTO_INCREMENT;
+ALTER TABLE
+    usuarios_eventos_crean
+MODIFY
+    COLUMN id INT AUTO_INCREMENT;
+
+ALTER TABLE
+    usuarios_eventos_reservan
+MODIFY
+    COLUMN id INT AUTO_INCREMENT;
+
 ALTER TABLE eventos_categorias MODIFY COLUMN id INT AUTO_INCREMENT;
+
 ALTER TABLE eventos_boletos MODIFY COLUMN id INT AUTO_INCREMENT;
+
 ALTER TABLE eventos_metodos MODIFY COLUMN id INT AUTO_INCREMENT;
-
-

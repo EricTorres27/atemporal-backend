@@ -6,13 +6,13 @@ const router = Router()
 
 // User routes
 router.get('/:idEvento', eventController.getOne)
-router.get('/porCategoria/:idCategoria', eventController.getEventsByCategory)
-router.get('/porTexto/:texto', eventController.getEventsByTextSearch)
 router.get('/porEstado/:name', eventController.getAllByEstado)
 router.get('/porCiudad/:name', eventController.getAllByCiudad)
 router.post('/registrar-evento', eventController.registerEvent)
 router.post('/reservar', eventController.registerAttendee)
-router.delete('/cancelar-reservacion/:idUsuario', eventController.unregisterAttendee)
+router.delete('/cancelar-reservacion/:idUsuario',
+  eventController.unregisterAttendee
+)
 router.put('/:idEvento', eventController.updateOne)
 
 // Dashboard admin routes
