@@ -5,6 +5,10 @@ import { Category } from '../models/Category'
 import { State } from '../models/State'
 import { cloudinaryUpload } from '../utils/cloudinary.js'
 import randomString from '@smakss/random-string'
+import globalConfig from '../config'
+import nodemailer from 'nodemailer'
+import qr from 'qrcode'
+import { User } from '../models/User'
 
 export const eventController = {
   getAllPublic: async (req, res) => {
@@ -84,9 +88,55 @@ export const eventController = {
   registerAttendee: async (req, res) => {
     try {
       console.log(req.body)
-      randomString(10)
-      const respE = await Event.registerAttendee(req.body)
-      res.status(201).json(respE[0])
+      const hashQR = randomString(10)
+      const QR_CODE = await qr.toDataURL(hashQR)
+      const URL_QR_CODE = await cloudinaryUpload(QR_CODE)
+
+      console.log(hashQR)
+      const reservation = {
+        id_usuario: req.body.id,
+        id_evento: req.body.id_evento,
+        codigo_qr: URL_QR_CODE
+      }
+
+      await Event.registerAttendee(reservation)
+      const user = await User.getOneById(req.body.id)
+      const currentTicket = await Ticket.getOne(req.body.id_boleto)
+      await Ticket.updateOne(req.body.id_boleto, {
+        ...currentTicket[0],
+        cantidad: (currentTicket[0].cantidad - req.body.cantidad)
+      })
+      const currentTicket3 = await Ticket.getOne(req.body.id_boleto)
+      console.log(currentTicket3[0])
+
+      console.log(QR_CODE)
+
+      // Create a SMTP transporter object
+      const transporter = nodemailer.createTransport(globalConfig.SMTP_CREDENTIALS)
+      // Message object
+      const message = {
+        from: 'noreplay@atemporal.art',
+        to: `${user[0].email}`,
+        subject: 'Reservación de evento',
+        text: 'Atemporal, la mejor plataforma de eventos',
+        html: `
+        <p>Tu reservación ha sido existosa</p>
+        <p>Tu codigo QR para acceder al evento es:</p>
+        <img width="250"  src=${URL_QR_CODE} alt="QR"  >
+        `
+      }
+
+      transporter.sendMail(message, (err, info) => {
+        if (err) {
+          console.log('Error occurred. ' + err.message)
+          return process.exit(1)
+        }
+
+        console.log('Message sent: %s', info.messageId)
+        // Preview only available when sending through an Ethereal account
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info))
+        res.status(200).json({ msg: 'Reservación exitosa' })
+      })
     } catch (error) {
       console.log(error)
       res.status(500).json({ msg: 'error' })
