@@ -141,10 +141,10 @@ export const eventController = {
   },
   registerEvent: async (req, res) => {
     try {
+      const idUsuario = req.body.id
       const { event } = req.body
-      const { id } = req.body
       const { categorias } = req.body
-      const { estados } = req.body
+      const { estado } = req.body
 
       event.foto_evento = await cloudinaryUpload(event.foto_evento)
 
@@ -153,13 +153,13 @@ export const eventController = {
       }
 
       const [idEventCreated] = await Event.postOne(event)
-      await Event.registerEventCreation(id.id, idEventCreated)
+      await Event.registerEventCreation(idUsuario, idEventCreated)
 
       for (let i = 0; i < categorias.length; i++) {
         await Category.postEventCategory(categorias[i].id, idEventCreated)
       }
 
-      await State.postEventState(estados.id, idEventCreated)
+      await State.postEventState(estado.id, idEventCreated)
 
       if (event.tipo_cobro === false) {
         res.status(201).json({ msg: 'Event creado exitosamente con id: ' + idEventCreated })
