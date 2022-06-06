@@ -9,6 +9,7 @@ router.get('/:idEvento', eventController.getOne)
 router.get('/porEstado/:name', eventController.getAllByEstado)
 router.get('/porCiudad/:name', eventController.getAllByCiudad)
 router.post('/registrar-evento', eventController.registerEvent)
+// Reservations
 router.post('/reservar', eventController.registerAttendee)
 router.delete('/cancelar-reservacion/:idUsuario',
   eventController.unregisterAttendee
