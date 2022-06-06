@@ -4,6 +4,7 @@ import { Ticket } from '../models/Ticket'
 import { Category } from '../models/Category'
 import { State } from '../models/State'
 import { cloudinaryUpload } from '../utils/cloudinary.js'
+// import { cryptoRandomStringAsync } from 'crypto-random-string'
 
 export const eventController = {
   getAllPublic: async (req, res) => {
@@ -84,6 +85,7 @@ export const eventController = {
     try {
       console.log(req.body)
       const respE = await Event.registerAttendee(req.body)
+      // await cryptoRandomStringAsync({ length: 10 })
       return res.status(201).json(respE[0])
     } catch (error) {
       console.log(error)
@@ -145,6 +147,10 @@ export const eventController = {
       const { estados } = req.body
 
       event.foto_evento = await cloudinaryUpload(event.foto_evento)
+
+      if (event.itinerario_evento) {
+        event.itinerario_evento = await cloudinaryUpload(event.itinerario_evento)
+      }
 
       const [idEventCreated] = await Event.postOne(event)
       await Event.registerEventCreation(id.id, idEventCreated)
