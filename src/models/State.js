@@ -5,6 +5,6 @@ export const State = {
     return knex.select().table('estados').where('esta_activo', 1)
   },
   getOnebyId: (id) => {
-    return knex.select().table('estados').where('id_categoria', id).where('esta_activo', 1)
+    return knex.select().table('estados').where('id_estado', id).where('esta_activo', 1)
   }
 }

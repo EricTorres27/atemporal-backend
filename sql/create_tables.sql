@@ -83,6 +83,7 @@ CREATE TABLE boletos (
 CREATE TABLE estados (
     id_estado int NOT NULL,
     nombre varchar(255) NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -91,6 +92,7 @@ CREATE TABLE eventos_estados (
     id int NOT NULL,
     id_evento int NOT NULL,
     id_estado int NOT NULL,
+    esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

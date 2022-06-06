@@ -9,7 +9,7 @@ export const stateController = {
       res.status(200).json(states)
     } catch (error) { // En caso de error se arroja el error a la consola y regresamos un estado 500
       console.log(error)
-      res.status(500).json({ msg: 'Error al extraer las categorias' })
+      res.status(500).json({ msg: 'Error al extraer los estados' })
     }
   },
 
@@ -19,11 +19,11 @@ export const stateController = {
       if (state[0]) {
         res.json(state[0])
       } else {
-        res.status(400).json({ msg: 'Esta categoria no existe' })
+        res.status(400).json({ msg: 'El estado no existe' })
       }
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'Error al extraer la categoria' })
+      res.status(500).json({ msg: 'Error al extraer el estado' })
     }
   }
 }
