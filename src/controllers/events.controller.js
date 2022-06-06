@@ -2,6 +2,7 @@
 import { Event } from '../models/Event'
 import { Ticket } from '../models/Ticket'
 import { Category } from '../models/Category'
+import { State } from '../models/State'
 import { cloudinaryUpload } from '../utils/cloudinary.js'
 
 export const eventController = {
@@ -141,16 +142,18 @@ export const eventController = {
       const { event } = req.body
       const { id } = req.body
       const { categorias } = req.body
+      const { estados } = req.body
 
-      console.log(event, 'ANTES CL')
       event.foto_evento = await cloudinaryUpload(event.foto_evento)
 
       const [idEventCreated] = await Event.postOne(event)
-      await Event.registerEventCreation(id, idEventCreated)
+      await Event.registerEventCreation(id.id, idEventCreated)
 
       for (let i = 0; i < categorias.length; i++) {
         await Category.postEventCategory(categorias[i].id, idEventCreated)
       }
+
+      await State.postEventState(estados.id, idEventCreated)
 
       if (event.tipo_cobro === false) {
         res.status(201).json({ msg: 'Event creado exitosamente con id: ' + idEventCreated })
