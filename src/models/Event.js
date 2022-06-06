@@ -56,8 +56,6 @@ export const Event = {
     ).andWhere('esta_aprobado', 1
     ).where('nombre_evento', 'like', `%${textToFind}%`
     ).orWhere('nombre_organizador', 'like', `%${textToFind}%`
-    ).orWhere('ciudad', 'like', `%${textToFind}%`
-    ).orWhere('estado', 'like', `%${textToFind}%`
     ).andWhere('esta_activo', 1
     ).andWhere('esta_aprobado', 1)
     /* SELECT * FROM eventos e INNER JOIN eventos_categorias ec ON e.id_evento = ec.id_evento  WHERE ec.id_categoria = 4; */
