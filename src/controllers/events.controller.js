@@ -4,7 +4,7 @@ import { Ticket } from '../models/Ticket'
 import { Category } from '../models/Category'
 import { State } from '../models/State'
 import { cloudinaryUpload } from '../utils/cloudinary.js'
-// import { cryptoRandomStringAsync } from 'crypto-random-string'
+import randomString from '@smakss/random-string'
 
 export const eventController = {
   getAllPublic: async (req, res) => {
@@ -84,12 +84,12 @@ export const eventController = {
   registerAttendee: async (req, res) => {
     try {
       console.log(req.body)
+      randomString(10)
       const respE = await Event.registerAttendee(req.body)
-      // await cryptoRandomStringAsync({ length: 10 })
-      return res.status(201).json(respE[0])
+      res.status(201).json(respE[0])
     } catch (error) {
       console.log(error)
-      return res.status(500).json({ msg: 'error' })
+      res.status(500).json({ msg: 'error' })
     }
   },
   unregisterAttendee: async (req, res) => {

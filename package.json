@@ -25,12 +25,12 @@
   "homepage": "https://github.com/Saulrs98/Atemporal-Back-end#readme",
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
+    "@smakss/random-string": "^1.2.2",
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "cloudinary": "^1.30.0",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
-    "crypto-random-string": "^5.0.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "joi": "^17.6.0",
