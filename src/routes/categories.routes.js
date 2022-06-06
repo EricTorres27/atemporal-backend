@@ -5,7 +5,10 @@ import { validateCreateCategory } from '../middlewares/category.middleware'
 
 const router = Router()
 
-router.get('/:id', authMiddleware.isAdmin, categoryController.getOne)
+router.get('/:id',
+  authMiddleware.isAdmin,
+  categoryController.getOne
+)
 router.post('/',
   authMiddleware.isAdmin,
   validateCreateCategory,

@@ -56,7 +56,7 @@ CREATE TABLE eventos (
     url_video varchar(255) NOT NULL,
     itinerario_evento varchar(255) NOT NULL,
     tipo_cobro boolean NOT NULL,
-    esta_activo boolean NOT NULL DEFAULT 0,
+    esta_activo boolean NOT NULL DEFAULT 1,
     esta_aprobado boolean NOT NULL DEFAULT 0,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -102,8 +102,6 @@ CREATE TABLE metodos_pago (
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-
-
 
 CREATE TABLE roles_permisos (
     id_rol int NOT NULL,
@@ -207,10 +205,11 @@ ADD
     CONSTRAINT pk_eventos PRIMARY KEY (id_evento),
     CHANGE id_evento id_evento int NOT NULL AUTO_INCREMENT;
 
-ALTER TABLE estados
-ADD CONSTRAINT pk_estados PRIMARY KEY (id_estado),
-CHANGE id_estado id_estado int NOT NULL AUTO_INCREMENT;
-
+ALTER TABLE
+    estados
+ADD
+    CONSTRAINT pk_estados PRIMARY KEY (id_estado),
+    CHANGE id_estado id_estado int NOT NULL AUTO_INCREMENT;
 
 /*TABLAS CON LLAVES FORANEAS*/
 
@@ -281,11 +280,15 @@ ADD
 ADD
     CONSTRAINT fk_eventos_metodos FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
 
-ALTER TABLE eventos_estados
-ADD CONSTRAINT pk_ee PRIMARY KEY (id, id_evento, id_estado),
-CHANGE id id int NOT NULL AUTO_INCREMENT,
-ADD CONSTRAINT fk_estados FOREIGN KEY (id_estado) REFERENCES estados(id_estado),
-ADD CONSTRAINT fk_eventos_estados FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
+ALTER TABLE
+    eventos_estados
+ADD
+    CONSTRAINT pk_ee PRIMARY KEY (id, id_evento, id_estado),
+    CHANGE id id int NOT NULL AUTO_INCREMENT,
+ADD
+    CONSTRAINT fk_estados FOREIGN KEY (id_estado) REFERENCES estados(id_estado),
+ADD
+    CONSTRAINT fk_eventos_estados FOREIGN KEY (id_evento) REFERENCES eventos(id_evento);
 
 /* AUTOINCREMENTS*/
 
@@ -300,12 +303,12 @@ MODIFY
     COLUMN id INT AUTO_INCREMENT;
 
 ALTER TABLE eventos_categorias MODIFY COLUMN id INT AUTO_INCREMENT;
-<<<<<<< HEAD
-=======
+
 ALTER TABLE eventos_boletos MODIFY COLUMN id INT AUTO_INCREMENT;
+
 ALTER TABLE eventos_metodos MODIFY COLUMN id INT AUTO_INCREMENT;
+
 ALTER TABLE eventos_estados MODIFY COLUMN id INT AUTO_INCREMENT;
->>>>>>> f40ddf3b95c0c6c6ff9bf727018f5ef3764794f8
 
 ALTER TABLE eventos_boletos MODIFY COLUMN id INT AUTO_INCREMENT;
 
