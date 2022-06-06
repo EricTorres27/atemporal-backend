@@ -54,7 +54,7 @@ CREATE TABLE eventos (
     foto_evento varchar(255) NOT NULL,
     direccion varchar(1000) NOT NULL,
     url_video varchar(255) NOT NULL,
-    itinerario_evento varchar(255) NOT NULL,
+    itinerario_evento varchar(255),
     tipo_cobro boolean NOT NULL,
     esta_activo boolean NOT NULL DEFAULT 1,
     esta_aprobado boolean NOT NULL DEFAULT 0,
