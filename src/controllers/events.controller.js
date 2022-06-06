@@ -34,7 +34,18 @@ export const eventController = {
     try {
       const event = await Event.getOne(req.params.idEvento)
       if (event[0]) {
-        res.json(event[0])
+        const tickets = await Event.getTickets(req.params.idEvento)
+        const boletos = []
+        for (const ticket of tickets) {
+          const data = await Event.getInfoTicket(ticket.id_boleto)
+          boletos.push(data[0])
+        }
+
+        const dataResponse = {
+          ...event[0],
+          boletos: boletos
+        }
+        res.json(dataResponse)
       } else {
         res.status(400).json({ msg: 'El evento no existe' })
       }
@@ -156,6 +167,7 @@ export const eventController = {
         // esto deberia estar aqui
       }
     } catch (error) {
+      console.log(error)
       res.status(500).json({ msg: 'Error al registrar evento' })
     }
   },
