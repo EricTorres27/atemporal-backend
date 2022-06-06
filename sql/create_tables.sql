@@ -256,4 +256,5 @@ ALTER TABLE eventos_boletos MODIFY COLUMN id INT AUTO_INCREMENT;
 ALTER TABLE eventos_metodos MODIFY COLUMN id INT AUTO_INCREMENT;
 ALTER TABLE eventos_estados MODIFY COLUMN id INT AUTO_INCREMENT;
 
+ALTER TABLE eventos_estados ADD UNIQUE(id_evento, id_estado);
 
