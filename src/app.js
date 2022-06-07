@@ -18,24 +18,6 @@ app.use(morgan('dev')) // Muestra en consola la url, tiempo y status solicitado
 app.use(express.json({ limit: '10Mb' }))
 app.use(express.urlencoded({ limit: '10Mb', extended: true }))
 
-app.post('/api/upload', async (req, res) => {
-  try {
-    const fileStr = req.body.data
-    // console.log(fileStr)
-
-    const uploadedResponse = await cloudinary.uploader.upload(fileStr, {
-      upload_preset: 'dev_setups'
-    })
-
-    console.log(uploadedResponse.url)
-    // uploadedResponse.url -> usar para insercón de imagenes
-    res.json({ msg: 'SUCCESS' })
-  } catch (error) {
-    console.error(error)
-    res.status(500).json({ err: 'Something failed' })
-  }
-})
-
 // Iniciar rutas
 initRoutes(app)
 

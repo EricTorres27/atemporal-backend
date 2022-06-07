@@ -8,7 +8,7 @@ import { userMiddleware } from '../middlewares/user.middlewares'
 
 const router = Router()
 // Events
-router.get('/', (_, res) => res.json({ msg: 'Server is running 🐱‍🏍' }))
+router.get('/', (_, res) => res.json({ msg: 'Backend is live 🤠' }))
 router.get('/eventos', eventController.getAll)
 router.get('/eventos/:idEvento', eventController.getOne)
 router.get('/eventos/porCategoria/:idCategoria', eventController.getEventsByCategory)
