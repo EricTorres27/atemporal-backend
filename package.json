@@ -4,7 +4,7 @@
   "description": "Espacio dedicado al back-end de la plataforma",
   "main": "index.js",
   "engines": {
-    "node": "16.x"
+    "node": "14.x"
   },
   "scripts": {
     "start": "node dist/index.js",
