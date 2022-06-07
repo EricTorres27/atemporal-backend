@@ -1,6 +1,6 @@
 import { knex } from '../db'
 
-const Ticket = {
+export const Ticket = {
   getAll: () => {
     return knex.select().table('boletos').where('esta_activo', 1)
   },
@@ -20,5 +20,3 @@ const Ticket = {
     return knex('boletos').where('id_boleto', id).update({ esta_activo: false })
   }
 }
-
-module.exports = { Ticket }
