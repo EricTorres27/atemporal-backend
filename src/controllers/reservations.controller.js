@@ -79,9 +79,22 @@ export const reservationController = {
     }
   },
 
-  verifyReservations: async (req, res) => {
+  getHashByIds: async (req, res) => {
     try {
       const reservation = await Reservations.verifyReservation(req.params.id_evento, req.params.id_usuario)
+      if (reservation[0]) {
+        res.json(reservation[0])
+      } else {
+        res.status(400).json({ msg: 'Esta reservacion no existe' })
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'Error al extraer la reservacion' })
+    }
+  },
+  getReservationByHash: async (req, res) => {
+    try {
+      const reservation = await Reservations.verifyReservation(req.params.hash_qr)
       if (reservation[0]) {
         res.json(reservation[0])
       } else {

@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { eventController } from '../controllers/events.controller'
+import { reservationController } from '../controllers/reservations.controller'
 import { authMiddleware } from '../middlewares/auth.middleware'
 
 const router = Router()
@@ -15,6 +16,11 @@ router.delete('/cancelar-reservacion/:idUsuario',
   eventController.unregisterAttendee
 )
 router.put('/:idEvento', eventController.updateOne)
+// Consulta de reservaciones
+router.get('/reservacion/porUsuario/:idUsuario', reservationController.getAllReservationsByUser)
+router.get('/reservacion/porEventos/:idEvento', reservationController.getAllReservationsByEvent)
+router.get('/:idEvento/reservan/:idUsuario', reservationController.getHashByIds)
+router.post('/reservacion/info/', reservationController.getReservationByHash)
 
 // Dashboard admin routes
 router.get('/', authMiddleware.isAdmin, eventController.getAll)

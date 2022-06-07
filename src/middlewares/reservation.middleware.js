@@ -3,6 +3,7 @@ import { validateSchema } from '../utils/validator'
 
 const createReservationSchema = Joi.object({
   codigo_qr: Joi.string().min(3).max(255).required(),
+  hash_qr: Joi.string().min(3).max(255).required(),
   asistencia: Joi.boolean(),
   id_evento: Joi.number(),
   id_usuario: Joi.number(),
