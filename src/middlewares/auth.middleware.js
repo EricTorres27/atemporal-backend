@@ -53,7 +53,7 @@ export const authMiddleware = {
 
       const { id } = decodedToken
 
-      const [user] = await User.getOnebyId(id)
+      const [user] = await User.getOneById(id)
 
       if (user.token_recover !== token) {
         res.status(500).json({ msg: 'Enlace inválido' })
@@ -67,8 +67,8 @@ export const authMiddleware = {
       // Next middleware
       next()
     } catch (error) {
-      console.log(error, '🐱‍🐉 ERROR MIDDLEWARE')
-      res.status(500).json({ msg: 'Tiempo limite excedido' })
+      console.log(error, 'ERROR MIDDLEWARE')
+      res.status(500).json({ msg: 'Este enlace ya caduco' })
     }
   },
   isAdmin: async (req, res, next) => {
