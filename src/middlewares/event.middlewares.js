@@ -11,6 +11,7 @@ const createEventSchema = Joi.object({
   hora_inicio: Joi.string().min(5).max(5),
   hora_final: Joi.string().min(5).max(5),
   lugar: Joi.string().max(200),
+  ciudad: Joi.string().max(200),
   descripcion: Joi.string().max(1200),
   ubicacion_maps: Joi.string().max(500),
   direccion: Joi.string().min(10).max(500),

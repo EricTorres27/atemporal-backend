@@ -2,13 +2,13 @@ import { User } from '../models/User'
 import { authUtil } from '../utils/auth'
 
 export const authMiddleware = {
-  verifyToken: (req, res, next) => {
+  verifyTokenActive: (req, res, next) => {
     try {
       const { headers, body } = req
       const { authorization = undefined } = headers
 
       if (!authorization) {
-        res.status(500).json({ msg: 'missing token' })
+        res.status(500).json({ msg: 'Necesitas estar logeado' })
         return
       }
 
@@ -17,7 +17,7 @@ export const authMiddleware = {
       const decodedToken = authUtil.verifyToken(token)
 
       if (!decodedToken) {
-        res.status(500).json({ msg: 'invalid token' })
+        res.status(500).json({ msg: 'Credenciales invalidas' })
         return
       }
       const { id } = decodedToken
@@ -29,7 +29,7 @@ export const authMiddleware = {
       next()
     } catch (error) {
       console.log(error, '🙌')
-      res.status(500).json({ msg: 'Intentalo más tarde' })
+      res.status(500).json({ msg: 'Vuelve a iniciar sesión' })
     }
   },
   verifyTokenRecoverPassword: async (req, res, next) => {
@@ -53,7 +53,7 @@ export const authMiddleware = {
 
       const { id } = decodedToken
 
-      const [user] = await User.getOnebyId(id)
+      const [user] = await User.getOneById(id)
 
       if (user.token_recover !== token) {
         res.status(500).json({ msg: 'Enlace inválido' })
@@ -67,8 +67,21 @@ export const authMiddleware = {
       // Next middleware
       next()
     } catch (error) {
-      console.log(error, '🐱‍🐉 ERROR MIDDLEWARE')
-      res.status(500).json({ msg: 'Tiempo limite excedido' })
+      console.log(error, 'ERROR MIDDLEWARE')
+      res.status(500).json({ msg: 'Este enlace ya caduco' })
+    }
+  },
+  isAdmin: async (req, res, next) => {
+    try {
+      const user = await User.getOneById(req.body.id)
+      if (user[0]?.typeUser === 'admin') {
+        next()
+      } else {
+        res.status(400).json({ msg: 'no tienes permisos' })
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'error al consultar permisos' })
     }
   }
 }

@@ -14,7 +14,7 @@ export const cloudinaryUpload = async (fileStr) => {
       upload_preset: 'dev_setups'
     })
 
-    console.log(uploadedResponse.secure_url)
+    // console.log(uploadedResponse.secure_url)
     return uploadedResponse.secure_url
   } catch (error) {
     console.error(error)

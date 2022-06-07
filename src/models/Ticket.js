@@ -1,6 +1,6 @@
 import { knex } from '../db'
 
-const Ticket = {
+export const Ticket = {
   getAll: () => {
     return knex.select().table('boletos').where('esta_activo', 1)
   },
@@ -10,8 +10,8 @@ const Ticket = {
   postOne: (data) => {
     return knex('boletos').insert(data)
   },
-  postOneRelation: (idEvent,idTicket) => {
-    return knex('eventos_boletos').insert({id_boleto: idTicket, id_evento: idEvent})
+  postOneRelation: (idEvent, idTicket) => {
+    return knex('eventos_boletos').insert({ id_boleto: idTicket, id_evento: idEvent })
   },
   updateOne: (id, data) => { // data = {}
     return knex('boletos').where('id_boleto', id).update(data)
@@ -20,5 +20,3 @@ const Ticket = {
     return knex('boletos').where('id_boleto', id).update({ esta_activo: false })
   }
 }
-
-module.exports = { Ticket }

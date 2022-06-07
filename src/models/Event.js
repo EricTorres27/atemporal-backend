@@ -1,13 +1,28 @@
 import { knex } from '../db'
 
-const Event = {
+export const Event = {
   getAll: ({ esta_activo, esta_aprobado }) => {
     console.log(esta_activo, '🐱‍🏍')
     console.log(esta_aprobado, '✅❓')
     return knex.select().table('eventos').where({ esta_activo }).where({ esta_aprobado })
   },
   getOne: (id) => {
-    return knex.select().table('eventos').where('id_evento', id)
+    return knex
+      .select()
+      .table('eventos')
+      .where('id_evento', id)
+  },
+  getTickets: (id) => {
+    return knex
+      .select()
+      .table('eventos_boletos')
+      .where('id_evento', id)
+  },
+  getInfoTicket: (id) => {
+    return knex
+      .select()
+      .table('boletos')
+      .where('id_boleto', id)
   },
   getOnePublic: (id) => {
     return knex.select().table('eventos').where('id_evento', id).where('esta_aprobado', 1).where('esta_activo', 1)
@@ -36,7 +51,13 @@ const Event = {
   },
   getEventsByTextSearch: (textToFind) => {
     // console.log(textToFind)
-    return knex.select().from('eventos').andWhere('esta_activo', 1).andWhere('esta_aprobado', 1).where('nombre_evento', 'like', `%${textToFind}%`).orWhere('nombre_organizador', 'like', `%${textToFind}%`).andWhere('esta_activo', 1).andWhere('esta_aprobado', 1)
+    return knex.select().from('eventos'
+    ).andWhere('esta_activo', 1
+    ).andWhere('esta_aprobado', 1
+    ).where('nombre_evento', 'like', `%${textToFind}%`
+    ).orWhere('nombre_organizador', 'like', `%${textToFind}%`
+    ).andWhere('esta_activo', 1
+    ).andWhere('esta_aprobado', 1)
     /* SELECT * FROM eventos e INNER JOIN eventos_categorias ec ON e.id_evento = ec.id_evento  WHERE ec.id_categoria = 4; */
   },
   getAllByCiudad: (name) => {
@@ -46,5 +67,3 @@ const Event = {
     return knex.select().table('eventos').where('estado', name).where('esta_activo', 1).where('esta_aprobado', 1)
   }
 }
-
-module.exports = { Event }

@@ -1,6 +1,6 @@
 import { knex } from '../db'
 
-const Category = {
+export const Category = {
   getAll: () => {
     return knex.select().table('categorias').where('esta_activo', 1)
   },
@@ -20,5 +20,3 @@ const Category = {
     return knex('categorias').where('id_categoria', id).update({ esta_activo: false })
   }
 }
-
-module.exports = { Category }
