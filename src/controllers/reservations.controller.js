@@ -15,17 +15,15 @@ export const reservationController = {
 
   getAllReservationsByUser: async (req, res) => {
     try {
-      console.log(req.params.idUsuario)
-      const reservation = await Reservation.getAllReservationsByUser(req.params.idUsuario)
-      console.log(reservation)
-      if (reservation[0]) {
-        res.json(reservation[0])
-      } else {
-        res.status(400).json({ msg: 'Esta reservacion no existe' })
-      }
+      console.log('LLEGO')
+      const reservations = await Reservation.getAllReservationsByUser(req.body.id)
+      console.log(reservations)
+      res.status(200).json({
+        reservaciones: reservations
+      })
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'Error al extraer la reservacion' })
+      res.status(500).json({ msg: 'Error al consultar las reservaciones del usaurio' })
     }
   },
 

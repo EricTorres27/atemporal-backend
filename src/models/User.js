@@ -16,7 +16,6 @@ export const User = {
       .where('esta_activo', 1)
   },
   getOne: (id) => {
-    console.log('HEY 😅')
     return knex
       .select('nombre', 'email', 'celular')
       .table('usuarios')
