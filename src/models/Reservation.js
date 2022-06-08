@@ -33,7 +33,7 @@ export const Reservation = {
     return knex('usuarios_eventos_reservan').where('id', id).update({ esta_activo: false })
   },
   getHashByIds: (id_evento, id_usuario) => {
-    return knex.select('hash_qr').table('usuarios_eventos_reservan').where('id_evento', id_evento).where('id_usuario', id_usuario).where('esta_activo', 1)
+    return knex.select('hash_qr').table('usuarios_eventos_reservan').where({ id_evento: id_evento }).where('id_usuario', id_usuario).where('esta_activo', 1)
   },
   getReservationByHash: (hash_qr) => {
     return knex.select().table('usuarios_eventos_reservan').where('hash_qr', hash_qr).where('esta_activo', 1)

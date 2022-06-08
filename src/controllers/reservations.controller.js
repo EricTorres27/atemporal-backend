@@ -1,11 +1,11 @@
-import { Reservations } from '../models/Reservation'
+import { Reservation } from '../models/Reservation'
 
 export const reservationController = {
 
   getAll: async (req, res) => {
     try {
       // Categorias realiza una peticion al Modelo, y espera a que termine
-      const reservations = await Reservations.getAll()
+      const reservations = await Reservation.getAll()
       res.status(200).json(reservations)
     } catch (error) { // En caso de error se arroja el error a la consola y regresamos un estado 500
       console.log(error)
@@ -15,7 +15,9 @@ export const reservationController = {
 
   getAllReservationsByUser: async (req, res) => {
     try {
-      const reservation = await Reservations.getAllReservationByUser(req.params.id)
+      console.log(req.params.idUsuario)
+      const reservation = await Reservation.getAllReservationsByUser(req.params.idUsuario)
+      console.log(reservation)
       if (reservation[0]) {
         res.json(reservation[0])
       } else {
@@ -29,7 +31,7 @@ export const reservationController = {
 
   getAllReservationsByEvent: async (req, res) => {
     try {
-      const reservation = await Reservations.getAllReservationsByEvent(req.params.id)
+      const reservation = await Reservation.getAllReservationsByEvent(req.params.idEvento)
       if (reservation[0]) {
         res.json(reservation[0])
       } else {
@@ -43,7 +45,7 @@ export const reservationController = {
 
   postOne: async (req, res) => {
     try {
-      const resp = await Reservations.postOne(req.body)
+      const resp = await Reservation.postOne(req.body)
       res.status(201).json(resp[0])
     } catch (error) {
       console.log(error)
@@ -53,7 +55,7 @@ export const reservationController = {
 
   updateOne: async (req, res) => {
     try {
-      const resp = await Reservations.updateOne(req.params.id, req.body)
+      const resp = await Reservation.updateOne(req.params.id, req.body)
       if (resp) {
         res.status(202).json({ rows_affected: resp })
       } else {
@@ -67,7 +69,7 @@ export const reservationController = {
 
   deleteOne: async (req, res) => {
     try {
-      const resp = await Reservations.deleteOne(req.params.id)
+      const resp = await Reservation.deleteOne(req.params.id)
       if (resp) {
         res.status(202).json({ rows_affected: resp })
       } else {
@@ -81,7 +83,10 @@ export const reservationController = {
 
   getHashByIds: async (req, res) => {
     try {
-      const reservation = await Reservations.verifyReservation(req.params.id_evento, req.params.id_usuario)
+      const idUsuario = req.params.idUsuario
+      const idEvento = req.params.idEvento
+      // console.log('idUsuario: ', idUsuario)
+      const reservation = await Reservation.getHashByIds(idEvento, idUsuario)
       if (reservation[0]) {
         res.json(reservation[0])
       } else {
@@ -94,7 +99,7 @@ export const reservationController = {
   },
   getReservationByHash: async (req, res) => {
     try {
-      const reservation = await Reservations.verifyReservation(req.params.hash_qr)
+      const reservation = await Reservation.getReservationByHash(req.body.hash_qr)
       if (reservation[0]) {
         res.json(reservation[0])
       } else {

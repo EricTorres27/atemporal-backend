@@ -18,7 +18,7 @@ router.delete('/cancelar-reservacion/:idUsuario',
 router.put('/:idEvento', eventController.updateOne)
 // Consulta de reservaciones
 router.get('/reservacion/porUsuario/:idUsuario', reservationController.getAllReservationsByUser)
-router.get('/reservacion/porEventos/:idEvento', reservationController.getAllReservationsByEvent)
+router.get('/reservacion/porEvento/:idEvento', reservationController.getAllReservationsByEvent)
 router.get('/:idEvento/reservan/:idUsuario', reservationController.getHashByIds)
 router.post('/reservacion/info/', reservationController.getReservationByHash)
 
