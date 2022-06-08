@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { authController } from '../controllers/auth.controller'
 import { categoryController } from '../controllers/category.controller'
 import { eventController } from '../controllers/events.controller'
+import { reservationController } from '../controllers/reservations.controller'
 import { userController } from '../controllers/users.controller'
 import { authMiddleware } from '../middlewares/auth.middleware'
 import { userMiddleware } from '../middlewares/user.middlewares'
@@ -33,4 +34,5 @@ router.put('/cambiar-password',
   authMiddleware.verifyTokenRecoverPassword,
   userController.recoverPassword
 )
+router.post('/reservaciones/verificar/', reservationController.getReservationByHash)
 export default router
