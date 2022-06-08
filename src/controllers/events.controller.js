@@ -107,6 +107,7 @@ export const eventController = {
 
       await Reservation.registerReservation(reservation)
       const user = await User.getOneById(req.body.id)
+      const event = await Event.getOne(req.body.id_evento)
 
       const { id_boleto, cantidad } = req.body
       if (id_boleto != null && cantidad != null) {
@@ -129,8 +130,8 @@ export const eventController = {
         text: 'Atemporal, la mejor plataforma de eventos',
         html: `
         <p>Tu reservación ha sido existosa</p>
-        <p>Tu codigo QR para acceder al evento es:</p>
-        <img width="250"  src=${URL_QR_CODE} alt="QR"  >
+        <p>Tu codigo QR para acceder al evento <b> ${event[0].nombre_evento} <b> es:</p>
+        <img width="300"  src=${URL_QR_CODE} alt="QR"  >
         `
       }
 
