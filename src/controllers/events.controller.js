@@ -148,7 +148,7 @@ export const eventController = {
       })
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'Error al reservar, intentalo más tarde' })
+      res.status(400).json({ msg: 'Error al reservar, intentalo más tarde' })
     }
   },
   unregisterAttendee: async (req, res) => {
