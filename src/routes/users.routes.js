@@ -4,6 +4,8 @@ import { authMiddleware } from '../middlewares/auth.middleware'
 import { reservationController } from '../controllers/reservations.controller'
 
 const router = Router()
+// Consulta de reservaciones
+router.get('/reservaciones', reservationController.getAllReservationsByUser)
 
 router.get('/', authMiddleware.isAdmin, userController.getAll)
 router.get('/me', userController.whoIam)

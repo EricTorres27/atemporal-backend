@@ -33,7 +33,7 @@ export const reservationController = {
       res.json(dataReservations)
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'Error al extraer la reservacion' })
+      res.status(500).json({ msg: 'Error al consultar las reservaciones del usaurio' })
     }
   },
 
