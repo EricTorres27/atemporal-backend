@@ -18,7 +18,6 @@ export const reservationController = {
     try {
       console.log(req.params.idUsuario)
       const reservations = await Reservation.getAllReservationsByUser(req.body.id)
-      console.log(reservations)
 
       const dataReservations = []
 
@@ -30,6 +29,7 @@ export const reservationController = {
         })
       }
 
+      console.log(dataReservations)
       res.json(dataReservations)
     } catch (error) {
       console.log(error)
