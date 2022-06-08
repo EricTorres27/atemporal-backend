@@ -19,6 +19,6 @@ router.delete('/:id', userController.deleteOne)
 router.get('/:idUsuario/reservaciones', reservationController.getAllReservationsByUser)
 
 // Consulta de publicaciones
-router.get('/publicaciones/aprobadas/:idUsuario', userController.getAllMyPublicationsApproved)
-router.get('/publicaciones/porAprobar/:idUsuario', userController.getAllMyPublicationsToApprove)
+router.get('/publicaciones/aprobadas/', userController.getAllMyPublicationsApproved)
+router.get('/publicaciones/porAprobar/', userController.getAllMyPublicationsToApprove)
 module.exports = router

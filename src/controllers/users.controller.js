@@ -1,5 +1,6 @@
 import { User } from '../models/User'
 import { hashUtil } from '../utils/hash'
+import { Event } from '../models/Event'
 
 export const userController = {
   getAll: async (req, res) => {
@@ -110,12 +111,16 @@ export const userController = {
   },
   getAllMyPublicationsToApprove: async (req, res) => {
     try {
-      const publications = await User.getAllMyPublicationsToApprove(req.params.idUsuario)
-      if (publications[0]) {
-        res.json(publications[0])
-      } else {
-        res.status(400).json({ msg: 'Este usuario no tiene publicaciones por aprobar' })
+      const publications = await User.getAllMyPublicationsToApprove(req.body.id)
+      console.log(publications, 'aaaaaaaaaaaaaaaaaaaa')
+
+      const dataPublicaciones = []
+
+      for (const publicacion of publications) {
+        const data = await Event.getOne(publicacion.id_evento)
+        dataPublicaciones.push({ ...data[0] })
       }
+      res.json(dataPublicaciones)
     } catch (error) {
       console.log(error)
       res.status(500).json({ msg: 'Error al consultar las publicaciones' })
@@ -123,12 +128,16 @@ export const userController = {
   },
   getAllMyPublicationsApproved: async (req, res) => {
     try {
-      const publications = await User.getAllMyPublicationsApproved(req.params.idUsuario)
-      if (publications[0]) {
-        res.json(publications[0])
-      } else {
-        res.status(400).json({ msg: 'Este usuario no tiene publicaciones aprobadas' })
+      const publications = await User.getAllMyPublicationsApproved(req.body.id)
+      console.log(publications, 'aaaaaaaaaaaaaaaaaaaa')
+
+      const dataPublicaciones = []
+
+      for (const publicacion of publications) {
+        const data = await Event.getOne(publicacion.id_evento)
+        dataPublicaciones.push({ ...data[0] })
       }
+      res.json(dataPublicaciones)
     } catch (error) {
       console.log(error)
       res.status(500).json({ msg: 'Error al consultar las publicaciones' })
