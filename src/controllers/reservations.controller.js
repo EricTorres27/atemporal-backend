@@ -81,12 +81,12 @@ export const reservationController = {
     }
   },
 
-  getHashByIds: async (req, res) => {
+  getQrCodeByIds: async (req, res) => {
     try {
       const idUsuario = req.params.idUsuario
       const idEvento = req.params.idEvento
       // console.log('idUsuario: ', idUsuario)
-      const reservation = await Reservation.getHashByIds(idEvento, idUsuario)
+      const reservation = await Reservation.getQrCodeByIds(idEvento, idUsuario)
       if (reservation[0]) {
         res.json(reservation[0])
       } else {

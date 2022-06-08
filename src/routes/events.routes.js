@@ -17,10 +17,9 @@ router.delete('/cancelar-reservacion/:idUsuario',
 )
 router.put('/:idEvento', eventController.updateOne)
 // Consulta de reservaciones
-router.get('/reservacion/porUsuario/:idUsuario', reservationController.getAllReservationsByUser)
-router.get('/reservacion/porEvento/:idEvento', reservationController.getAllReservationsByEvent)
-router.get('/:idEvento/reservan/:idUsuario', reservationController.getHashByIds)
-router.post('/reservacion/info/', reservationController.getReservationByHash)
+router.get('/reservaciones/eventos/:idEvento', reservationController.getAllReservationsByEvent) // Evento oruter
+router.get('/:idEvento/reservan/:idUsuario', reservationController.getQrCodeByIds)
+router.post('/reservaciones/verificar/', reservationController.getReservationByHash)
 
 // Dashboard admin routes
 router.get('/', authMiddleware.isAdmin, eventController.getAll)

@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { userController } from '../controllers/users.controller'
 import { authMiddleware } from '../middlewares/auth.middleware'
+import { reservationController } from '../controllers/reservations.controller'
 
 const router = Router()
 
@@ -11,5 +12,8 @@ router.put('/:id/actualizar-password', userController.updatePassword)
 router.post('/', userController.postOneAdmin)
 router.put('/:id', userController.updateOne)
 router.delete('/:id', userController.deleteOne)
+
+// Consulta de reservaciones
+router.get('/reservaciones/usuarios/:idUsuario', reservationController.getAllReservationsByUser)
 
 module.exports = router
