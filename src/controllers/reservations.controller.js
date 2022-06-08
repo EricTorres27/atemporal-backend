@@ -1,4 +1,5 @@
 import { Reservation } from '../models/Reservation'
+import { Event } from '../models/Event'
 
 export const reservationController = {
 
@@ -16,13 +17,20 @@ export const reservationController = {
   getAllReservationsByUser: async (req, res) => {
     try {
       console.log(req.params.idUsuario)
-      const reservation = await Reservation.getAllReservationsByUser(req.params.idUsuario)
-      console.log(reservation)
-      if (reservation[0]) {
-        res.json(reservation[0])
-      } else {
-        res.status(400).json({ msg: 'Esta reservacion no existe' })
+      const reservations = await Reservation.getAllReservationsByUser(req.body.id)
+      console.log(reservations)
+
+      const dataReservations = []
+
+      for (const reservacion of reservations) {
+        const data = await Event.getOne(reservacion.id_evento)
+        dataReservations.push({
+          codigo_qr: reservacion.codigo_qr,
+          evento: data[0]
+        })
       }
+
+      res.json(dataReservations)
     } catch (error) {
       console.log(error)
       res.status(500).json({ msg: 'Error al extraer la reservacion' })

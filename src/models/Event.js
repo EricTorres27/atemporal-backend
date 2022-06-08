@@ -65,5 +65,8 @@ export const Event = {
   },
   getAllByEstado: (name) => {
     return knex.select().table('eventos').where('estado', name).where('esta_activo', 1).where('esta_aprobado', 1)
+  },
+  getAllByUserId: (name) => {
+    return knex.select().table('eventos').where('estado', name).where('esta_activo', 1).where('esta_aprobado', 1)
   }
 }
