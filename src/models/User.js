@@ -45,5 +45,24 @@ export const User = {
       .update({
         [field]: data
       })
+  },
+  getAllMyPublicationsToApprove: (id) => {
+    console.log('Por aprobar: OwO')
+    return knex
+      .select()
+      .table('usuarios_eventos_crean')
+      .where('id_usuario', id)
+      .where('esta_activo', 1)
+      .where('esta_aprobado', 0)
+  },
+  getAllMyPublicationsApproved: (id) => {
+    console.log('Aprobadas: ^_^')
+    return knex
+      .select()
+      .table('usuarios_eventos_crean')
+      .where('id_usuario', id)
+      .where('esta_activo', 1)
+      .where('esta_aprobado', 1)
   }
+
 }
