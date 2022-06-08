@@ -18,5 +18,12 @@ export const Category = {
   },
   deleteOne: (id) => { // data = {}
     return knex('categorias').where('id_categoria', id).update({ esta_activo: false })
+  },
+  //* **************** */
+  getCategoriesByEventId: (id) => {
+    return knex.select().table('eventos_categorias').where('id_evento', id).where('esta_activo', 1)
+  },
+  getCategoryNameById: (id) => {
+    return knex.select('nombre').table('categorias').where('id_categoria', id).where('esta_activo', 1)
   }
 }

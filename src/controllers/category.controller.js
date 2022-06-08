@@ -63,5 +63,31 @@ export const categoryController = {
       console.log(error)
       res.status(500).json({ msg: 'Error al borrar la categoria' })
     }
+  },
+  getCategoriesByEventId: async (req, res) => {
+    try {
+      const category = await Category.getCategoriesByEventId(req.params.id)
+      if (category[0]) {
+        res.json(category[0])
+      } else {
+        res.status(400).json({ msg: 'Esta evento no tiene categorias asociadas' })
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'Error al extraer el set de categorias' })
+    }
+  },
+  getCategoryNameById: async (req, res) => {
+    try {
+      const category = await Category.getCategoryNameById(req.params.id)
+      if (category[0]) {
+        res.json(category[0])
+      } else {
+        res.status(400).json({ msg: 'Esta evento no tiene categorias asociadas' })
+      }
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({ msg: 'Error al extraer el set de categorias' })
+    }
   }
 }
