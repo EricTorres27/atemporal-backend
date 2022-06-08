@@ -9,6 +9,7 @@ import globalConfig from '../config'
 import nodemailer from 'nodemailer'
 import qr from 'qrcode'
 import { User } from '../models/User'
+import { Reservation } from '../models/Reservation'
 
 export const eventController = {
   getAllPublic: async (req, res) => {
@@ -87,29 +88,29 @@ export const eventController = {
   },
   registerAttendee: async (req, res) => {
     try {
-      console.log(req.body)
       const hashQR = randomString(10)
       const QR_CODE = await qr.toDataURL(hashQR)
       const URL_QR_CODE = await cloudinaryUpload(QR_CODE)
 
-      console.log(hashQR)
       const reservation = {
         id_usuario: req.body.id,
         id_evento: req.body.id_evento,
         codigo_qr: URL_QR_CODE
       }
 
-      await Event.registerAttendee(reservation)
+      await Reservation.registerReservation(reservation)
       const user = await User.getOneById(req.body.id)
-      const currentTicket = await Ticket.getOne(req.body.id_boleto)
-      await Ticket.updateOne(req.body.id_boleto, {
-        ...currentTicket[0],
-        cantidad: (currentTicket[0].cantidad - req.body.cantidad)
-      })
-      const currentTicket3 = await Ticket.getOne(req.body.id_boleto)
-      console.log(currentTicket3[0])
 
-      console.log(QR_CODE)
+      const { id_boleto, cantidad } = req.body
+      if (id_boleto != null && cantidad != null) {
+        const currentTicket = await Ticket.getOne(id_boleto)
+        await Ticket.updateOne(req.body.id_boleto, {
+          ...currentTicket[0],
+          cantidad: (currentTicket[0].cantidad - cantidad)
+        })
+        const currentTicket3 = await Ticket.getOne(req.body.id_boleto)
+        console.log(currentTicket3[0])
+      }
 
       // Create a SMTP transporter object
       const transporter = nodemailer.createTransport(globalConfig.SMTP_CREDENTIALS)
@@ -139,7 +140,7 @@ export const eventController = {
       })
     } catch (error) {
       console.log(error)
-      res.status(500).json({ msg: 'error' })
+      res.status(500).json({ msg: 'Error al reservar, intentalo más tarde' })
     }
   },
   unregisterAttendee: async (req, res) => {

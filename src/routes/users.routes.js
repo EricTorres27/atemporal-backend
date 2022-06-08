@@ -14,6 +14,6 @@ router.put('/:id', userController.updateOne)
 router.delete('/:id', userController.deleteOne)
 
 // Consulta de reservaciones
-router.get('/reservaciones/usuarios/:idUsuario', reservationController.getAllReservationsByUser)
+router.get('/:idUsuario/reservaciones', reservationController.getAllReservationsByUser)
 
 module.exports = router

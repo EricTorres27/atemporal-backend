@@ -137,7 +137,7 @@ CREATE TABLE usuarios_eventos_reservan (
     id_evento int NOT NULL,
     asistencia boolean NOT NULL DEFAULT 0,
     codigo_qr varchar(255) NOT NULL,
-    hash_qr varchar(255) NOT NULL DEFAULT 0,
+    hash_qr varchar(255) NOT NULL DEFAULT 'default_hash ',
     esta_activo boolean NOT NULL DEFAULT 1,
     fecha_creado TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizado TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
