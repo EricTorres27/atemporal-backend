@@ -83,7 +83,8 @@ export const reservationController = {
 
   getQrCodeByIds: async (req, res) => {
     try {
-      const idUsuario = req.params.idUsuario || req.body.id // middleware from auth gives the token id user
+      console.log('QR')
+      const idUsuario = req.body.id // this comes from middlewasre auth
       const idEvento = req.params.idEvento
       // console.log('idUsuario: ', idUsuario)
       const reservation = await Reservation.getQrCodeByIds(idEvento, idUsuario)

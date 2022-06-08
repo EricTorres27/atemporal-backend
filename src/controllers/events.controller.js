@@ -48,10 +48,8 @@ export const eventController = {
           boletos.push(data[0])
         }
         const categories = await Category.getCategoriesByEventId(req.params.idEvento)
-        console.log(categories)
         const setCategories = []
         for (const category of categories) {
-          console.log(category.id_categoria)
           const data = await Category.getCategoryNameById(category.id_categoria)
           setCategories.push(data[0])
         }
