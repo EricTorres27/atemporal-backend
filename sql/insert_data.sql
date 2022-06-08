@@ -33,6 +33,13 @@ VALUES
         'eduardo.fuentesrocha@gmail.com',
         '$2a$12$JjaHoebtVa/fi7ELrPM5jeff3ZYvMq8VQfQS6b1CJhH2SyekrHW82',
         'admin'
+    ),
+    (
+        'USUARIO DUMMY',
+        '012356789',
+        'lorem.ipsum@gmail.com',
+        '$2a$12$5lcSI.YO2atNZuWsk57Ng.y2LTuNbrPlE27R8MXY5FRf6ec9.WXry', /* pass: dummyuser */
+        'general'
     );
 
 /* INSERTS PARA EVENTOS */
@@ -289,3 +296,17 @@ VALUES
     (3, 5),
     (7, 6),
     (6, 6);
+
+INSERT INTO 
+    `usuarios_eventos_crean` (`id_usuario`, `id_evento`, `esta_aprobado`, `esta_activo`) 
+VALUES 
+    (4, 1, 0, 1), 
+    (4, 2, 0, 1), 
+    (4, 3, 1, 1), 
+    (4, 4, 1, 1);
+
+INSERT INTO 
+    `usuarios_eventos_reservan` (`id_usuario`, `id_evento`, `asistencia`, `codigo_qr`, `hash_qr`, `esta_activo`)
+VALUES 
+    (4, 6, 1, 'soyunQr', '12345678910', 1), 
+    (4, 4, 0, 'soyunQr', '12345678910', 1);

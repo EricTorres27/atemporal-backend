@@ -16,7 +16,6 @@ export const reservationController = {
 
   getAllReservationsByUser: async (req, res) => {
     try {
-      console.log(req.params.idUsuario)
       const reservations = await Reservation.getAllReservationsByUser(req.body.id)
 
       const dataReservations = []
