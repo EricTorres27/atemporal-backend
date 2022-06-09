@@ -174,7 +174,8 @@ export const eventController = {
   aproveEvent: async (req, res) => {
     try {
       const resp = await Event.updateOne(req.params.idEvento, { esta_aprobado: 1, esta_activo: 1 })
-      res.json({ rows_affected: resp })
+      const respE = await Event.aproveThisEvent(req.params.idEvento, { esta_aprobado: 1, esta_activo: 1 })
+      res.json({ rows_affected: resp, rows_U_C_E: respE })
     } catch (error) {
       console.log(error)
       return res.status(500).json({ msg: 'error' })
@@ -183,7 +184,8 @@ export const eventController = {
   rejectEvent: async (req, res) => {
     try {
       const resp = await Event.updateOne(req.params.idEvento, { esta_aprobado: 0, esta_activo: 1 })
-      res.json({ rows_affected: resp })
+      const respE = await Event.rejectThisEvent(req.params.idEvento, { esta_aprobado: 0, esta_activo: 1 })
+      res.json({ rows_affected: resp, rows_U_C_E: respE })
     } catch (error) {
       console.log(error)
       return res.status(500).json({ msg: 'error' })
@@ -192,7 +194,8 @@ export const eventController = {
   deleteOne: async (req, res) => {
     try {
       const resp = await Event.deleteOne(req.params.idEvento)
-      res.json({ rows_affected: resp })
+      const respE = await Event.deleteThisEvent(req.params.idEvento, { esta_aprobado: 0, esta_activo: 0 })
+      res.json({ rows_affected: resp, rows_U_C_E: respE })
     } catch (error) {
       console.log(error)
       res.status(500).json({ msg: 'error' })
